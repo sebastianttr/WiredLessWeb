@@ -2,7 +2,7 @@
   <q-page class="flex flex-center bg-grey-10">
     <!-- Main Section -->
 
-    <div class="fit row wrap justify-center items-center content-center">
+    <div class="fit row wrap justify-center items-center content-center" style="color:white">
       <div class="fit column wrap justify-start items-start content-center">
         <div style="font-size:20px">This is</div>
         <div style="font-size:40px">
@@ -57,10 +57,21 @@
 }
 
 .contentView {
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
   border: solid black;
   border-radius: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+  .card {
+    border: solid grey;
+    background: grey;
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
+    width: 100%;
+  }
 }
 </style>
 
