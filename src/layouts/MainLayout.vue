@@ -88,17 +88,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  top: 50%;
   font-size: 20px;
 }
 
 .header {
-  background: red;
+  background: white;
   height: 80px;
   opacity: 0.8;
 }
 
 .headerMobile {
-  background: red;
+  background: white;
   height: 100px;
   opacity: 0.8;
   display: none;

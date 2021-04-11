@@ -2,21 +2,35 @@
   <q-page class="flex flex-center bg-grey-10">
     <!-- Main Section -->
 
-    <div class="fit row wrap justify-center items-center content-center" style="color:white">
-      <div class="fit column wrap justify-start items-start content-center">
-        <div style="font-size:20px">This is</div>
-        <div style="font-size:40px">
+    <div class="main" style="color:white">
+      <div class="fit column wrap justify-center items-start content-center">
+        <div class="fadeInThisIs" style="font-size:20px;color:black;">This is</div>
+
+        <div class="wiredlessTitle">
           <b>@wiredlessmaker</b>
         </div>
-        <div style="font-size:20px">Sebastian Tatar</div>
+
+        <div class="fadeInAka" style="font-size:20px;color:black;">also known as Sebastian Tatar</div>
       </div>
     </div>
 
     <!-- Projekts Section -->
 
     <div class="fit column wrap justify-center items-center content-center">
-      <div style="font-size:30px; color:white">Projects</div>
+      <div style="font-size:50px; color:white;margin:10px;">Projects</div>
       <div class="fit row wrap justify-center items-center content-center">
+        <div class="card">
+          <div class="contentView">pic or 3D</div>
+          <div style="font-size:20px">Flutter App</div>
+        </div>
+        <div class="card">
+          <div class="contentView">pic or 3D</div>
+          <div style="font-size:20px">Flutter App</div>
+        </div>
+        <div class="card">
+          <div class="contentView">pic or 3D</div>
+          <div style="font-size:20px">Flutter App</div>
+        </div>
         <div class="card">
           <div class="contentView">pic or 3D</div>
           <div style="font-size:20px">Flutter App</div>
@@ -35,25 +49,133 @@
     <!-- Socials Section -->
 
     <div class="fit column wrap justify-center items-center content-center">
-      <div style="font-size:30px; color:white">Socials</div>
-      <div class="fit row wrap justify-center items-center content-center">
-        <div class="card">dawd</div>
+      <div style="font-size:50px; color:white;margin:10px;">Socials</div>
+      <div class="fit column wrap justify-center items-center content-center">
+        <div class="cardSocials" @click="redirectInsta()">
+          <img class="socials_icon" src="../assets/images/instagram_logo.png">
+          <div>Instagram</div>
+          <div style="font-size:25px">@wired_less_maker</div>
+        </div>
+        <div class="cardSocials" @click="redirectGithub()">
+          <img class="socials_icon" src="../assets/images/github_logo.png">
+          <div>Github</div>
+          <div style="font-size:25px">wired_less_maker</div>
+        </div>
       </div>
     </div>
   </q-page>
 </template>
 
 <style>
+.main {
+  width: 100%;
+  height: 100vh;
+  background: white;
+}
+
+.maintext {
+  background-color: red;
+  transition: background-color 2s ease-in;
+}
+
+.maintext {
+  margin-top: 25px;
+  font-size: 21px;
+  text-align: center;
+
+  -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 2s; /* Firefox < 16 */
+  -ms-animation: fadein 2s; /* Internet Explorer */
+  -o-animation: fadein 2s; /* Opera < 12.1 */
+  animation: fadein 2s;
+}
+
+.fadeInThisIs {
+  animation: fadein 2.4s;
+}
+
+.fadeInAka {
+  animation: fadein 3.2s;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .heigth100 {
   height: 1000px;
 }
+.socials_icon {
+  margin-left: -3px;
+  margin-top: -3px;
+  margin-bottom: -1px;
+  margin-right: 10px;
+  border-style: hidden;
+  border-radius: 10px;
+  max-width: 120px;
+  float: left;
+  width: 100px;
+  height: 100;
+  object-fit: cover;
+}
 
-.card {
-  border: solid grey;
-  background: grey;
+.wiredlessTitle {
+  animation: fadein 2.8s;
+  color: black;
+  font-size: 40px;
+}
+
+.cardSocials {
+  border: solid #363636;
+  background: #363636;
   border-radius: 10px;
   margin: 10px;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
+  box-shadow: 2px 2px 15px rgba(0, 10, 12, 0.8);
+  color: white;
+  width: 500px;
+  padding: 10px;
+  transition: 500ms;
+}
+
+.cardSocials:hover {
+  box-shadow: 2px 2px 15px rgba(242, 105, 7, 0.4);
+  transition: 500ms;
+}
+
+.card {
+  border: solid #363636;
+  background: #363636;
+  border-radius: 10px;
+  margin: 10px;
+  box-shadow: 5px 5px 15px rgba(0, 10, 12, 0.4);
+  color: black;
+  padding: 10px;
+  transition: 500ms;
+}
+
+.card:hover {
+  box-shadow: 2px 2px 15px rgba(242, 105, 7, 0.4);
+  transition: 500ms;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  transition: opacity 2s;
+}
+.fade-enter-to {
+  opacity: 1;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: "../assets/fonts/Montserrat-Regular.ttf";
 }
 
 .contentView {
@@ -65,11 +187,14 @@
 
 @media only screen and (max-width: 768px) {
   .card {
-    border: solid grey;
-    background: grey;
-    border-radius: 10px;
-    margin: 10px;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
+    width: 100%;
+  }
+  .wiredlessTitle {
+    color: black;
+    font-size: 30px;
+  }
+
+  .cardSocials {
     width: 100%;
   }
 }
@@ -77,7 +202,20 @@
 
 
 <script>
+import { setTimeout } from "timers";
 export default {
-  name: "PageIndex"
+  name: "PageIndex",
+  data() {
+    return {};
+  },
+  methods: {
+    redirectInsta() {
+      window.location.href = "https://www.instagram.com/wired_less_maker/";
+    },
+    redirectGithub() {
+      window.location.href = "https://github.com/sebastianttr";
+    }
+  },
+  beforeMount() {}
 };
 </script>
