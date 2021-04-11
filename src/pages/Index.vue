@@ -53,8 +53,7 @@
   background: grey;
   border-radius: 10px;
   margin: 10px;
-  -webkit-box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
-  -moz-box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
 }
 
 .contentView {
