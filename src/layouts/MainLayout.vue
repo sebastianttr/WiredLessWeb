@@ -1,107 +1,67 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="leftDrawerOpen = !leftDrawerOpen"
-        />
-
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
-      </q-toolbar>
-    </q-header>
-
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-      content-class="bg-grey-1"
-    >
-      <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
-          Essential Links
-        </q-item-label>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
-
+    <div class="header fit row wrap justify-start items-start content-start">
+      <div class="title">WiredLess</div>
+      <div style="margin-left:5%">
+        <div class="fit row wrap justify-start items-start content-start">
+          <div class="navigation">
+            Home
+            <div class="background-color:green;width:inherit;"></div>
+          </div>
+          <div class="navigation">Projects</div>
+          <div class="navigation">Socials</div>
+        </div>
+      </div>
+    </div>
     <q-page-container>
-      <router-view />
+      <router-view/>
     </q-page-container>
   </q-layout>
 </template>
 
-<script>
-import EssentialLink from 'components/EssentialLink.vue'
+<style css>
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-const linksData = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-]
+.header {
+  background: red;
+  height: 80px;
+  opacity: 0.8;
+}
+.navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 60px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.navigation:hover {
+  color: green;
+  transition: 500ms;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.flexHorizontal {
+  display: flex;
+}
+</style>
+
+<script>
+import EssentialLink from "components/EssentialLink.vue";
 
 export default {
-  name: 'MainLayout',
+  name: "MainLayout",
   components: { EssentialLink },
-  data () {
+  data() {
     return {
       leftDrawerOpen: false,
       essentialLinks: linksData
-    }
+    };
   }
-}
+};
 </script>
