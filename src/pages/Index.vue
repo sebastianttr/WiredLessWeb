@@ -2,7 +2,7 @@
   <q-page class="flex flex-center bg-grey-10">
     <!-- Main Section -->
 
-    <div class="main" style="color:white">
+    <div id="main" class="main" style="color:white">
       <div class="fit column wrap justify-center items-start content-center">
         <div class="fadeInThisIs" style="font-size:20px;color:black;">This is</div>
 
@@ -16,7 +16,7 @@
 
     <!-- Projekts Section -->
 
-    <div class="fit column wrap justify-center items-center content-center">
+    <div id="projects" class="fit column wrap justify-center items-center content-center">
       <div style="font-size:50px; color:white;margin:10px;">Projects</div>
       <div class="fit row wrap justify-center items-center content-center">
         <div class="card">
@@ -48,7 +48,7 @@
 
     <!-- Socials Section -->
 
-    <div class="fit column wrap justify-center items-center content-center">
+    <div id="socials" class="fit column wrap justify-center items-center content-center q-ma-md">
       <div style="font-size:50px; color:white;margin:10px;">Socials</div>
       <div class="fit column wrap justify-center items-center content-center">
         <div class="cardSocials" @click="redirectInsta()">
@@ -62,6 +62,7 @@
           <div style="font-size:25px">wired_less_maker</div>
         </div>
       </div>
+      <div></div>
     </div>
   </q-page>
 </template>
@@ -91,7 +92,7 @@
 }
 
 .fadeInThisIs {
-  animation: fadein 2.4s;
+  animation: fadein 1.4s;
 }
 
 .fadeInAka {
@@ -125,7 +126,7 @@
 }
 
 .wiredlessTitle {
-  animation: fadein 2.8s;
+  animation: fadein 4s;
   color: black;
   font-size: 40px;
 }
@@ -137,7 +138,7 @@
   margin: 10px;
   box-shadow: 2px 2px 15px rgba(0, 10, 12, 0.8);
   color: white;
-  width: 500px;
+  width: 400px;
   padding: 10px;
   transition: 500ms;
 }
@@ -202,7 +203,10 @@
 
 
 <script>
+import { scroll } from "quasar";
+const { getScrollTarget, setScrollPosition } = scroll;
 import { setTimeout } from "timers";
+
 export default {
   name: "PageIndex",
   data() {
@@ -216,6 +220,22 @@ export default {
       window.location.href = "https://github.com/sebastianttr";
     }
   },
-  beforeMount() {}
+  created() {
+    this.$root.$on("scrollProjekts", msg => {
+      console.log("Scrolling");
+      const ele = document.getElementById("projects"); // You need to get your element here
+      ele.scrollIntoView({ behavior: "smooth" });
+    });
+
+    this.$root.$on("scrollToSocials", msg => {
+      console.log("Scrolling");
+      const ele = document.getElementById("socials"); // You need to get your element here
+      ele.scrollIntoView({ behavior: "smooth" });
+    });
+  },
+  beforeDestroy() {
+    // Don't forget to turn the listener off before your component is destroyed
+    this.$root.$off("scrollProjekts", () => {});
+  }
 };
 </script>
