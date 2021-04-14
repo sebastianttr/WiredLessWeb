@@ -1,46 +1,51 @@
 <template>
-  <q-layout view="lHh Lpr lFf" class="scroll overflow-hidden">
-    <div class="fullScreenNav">
-      <div id="myNav" class="overlay">
-        <a href="javascript:void(0)" class="closebtn" @click="closeNav()">&times;</a>
-        <div class="overlay-content">
-          <a href="#">About Me</a>
-          <a href="#">Projects</a>
-          <a href="#">My Repo</a>
-          <a href="#">Social Media</a>
+  <q-layout view="lHh Lpr lFf" class="scroll">
+    <div id="myNav" class="overlay">
+      <a href="javascript:void(0)" class="closebtn" @click="closeNav()">&times;</a>
+      <div class="overlay-content" @click="closeNav()">
+        <div @click="scrollToProjects()">
+          <div class="mobileNavs">Projects</div>
+        </div>
+        <div @click="scrollToSocials()">
+          <div class="mobileNavs">Socials</div>
+        </div>
+        <div @click="openContactMeDialog()">
+          <div class="mobileNavs">Contact Me</div>
         </div>
       </div>
     </div>
 
-    <div class="header fit row wrap justify-start items-start content-center">
-      <div style="font-size:20px;" class="q-mt-md q-ml-md">WiredLess</div>
-      <div style="margin-left:5%">
-        <div class="fit row wrap justify-start items-start content-start">
-          <div class="navigation">
-            <div style="pointer-events: none;">Home</div>
-          </div>
-          <div class="navigation" @click="scrollToProjects()">
-            <div style="pointer-events: none;">Projects</div>
-          </div>
-          <div class="navigation" @click="scrollToSocials()">
-            <div style="pointer-events: none;">Socials</div>
-          </div>
-          <div class="navigation" @click="openContactMeDialog()">
-            <div style="pointer-events: none;">Contact me!</div>
+    <q-header class="transparent header" style="margin-left:-10px;width:110vw;">
+      <q-toolbar class="text-black">
+        <div class="header fit row wrap justify-start items-start content-start">
+          <div style="font-size:20px;" class="q-mt-md q-ml-md">WiredLess</div>
+
+          <div style="margin-left:5%">
+            <div class="fit row wrap justify-start items-start content-start">
+              <div class="navigation" @click="scrollToHome()">
+                <div style="pointer-events: none;">Home</div>
+              </div>
+              <div class="navigation" @click="scrollToProjects()">
+                <div style="pointer-events: none;">Projects</div>
+              </div>
+              <div class="navigation" @click="scrollToSocials()">
+                <div style="pointer-events: none;">Socials</div>
+              </div>
+              <div class="navigation" @click="openContactMeDialog()">
+                <div style="pointer-events: none;">Contact me!</div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </q-toolbar>
+    </q-header>
 
-    <div class="headerMobile fit row wrap justify-start items-start content-start">
-      <div style="margin-left:5%">
-        <div class="fit row wrap justify-between items-stretch content-stretch">
-          <div class="title">WiredLess</div>
-
-          <q-btn flat color="orange" icon="menu" @click="openFullScreen()"/>
-        </div>
-      </div>
-    </div>
+    <q-header reveal :class="!showMobileToolBar?'transparent':'bg-white'  + ' headerMobile'">
+      <q-toolbar class="text-black">
+        <q-toolbar-title>WiredLess</q-toolbar-title>
+        <q-btn flat round dense icon="menu" @click="openFullScreen()"/>
+      </q-toolbar>
+    </q-header>
 
     <q-dialog v-model="dialog" position="bottom">
       <q-card style="width: 500px;" class="bg-grey-10 text-white">
@@ -122,18 +127,22 @@ export default {
       email: "",
       message: "",
       submitDone: false,
-      styleForm: "max-height:100vh;"
+      styleForm: "max-height:100vh;",
+      showMobileToolBar: true
     };
   },
   methods: {
     scrollToProjects() {
-      this.$root.$emit("scrollProjekts", "scroll");
+      this.$root.$emit("scrollToProjekts", "scroll");
     },
     scrollToSocials() {
       this.$root.$emit("scrollToSocials", "scroll");
     },
+    scrollToHome() {
+      this.$root.$emit("scrollToHome", "scroll");
+    },
     openContactMeDialog() {
-      this.closeNav();
+      console.log("dia");
       this.dialog = true;
     },
     onSubmit() {
@@ -142,9 +151,11 @@ export default {
       setTimeout(() => (this.dialog = false), 2000);
     },
     openFullScreen() {
-      document.getElementById("myNav").style.width = "100%";
+      this.showMobileToolBar = false;
+      document.getElementById("myNav").style.width = "100vw";
     },
     closeNav() {
+      this.showMobileToolBar = true;
       document.getElementById("myNav").style.width = "0%";
     }
   }
@@ -160,8 +171,15 @@ export default {
   transition: max-height 0.2s ease-in-out;
 }
 
+.mobileNavs {
+  font-size: 40px;
+  color: white;
+  pointer-events: none;
+  margin-bottom: 10px;
+}
+
 .overlay {
-  height: 100%;
+  height: 100vh;
   width: 0;
   position: fixed;
   z-index: 1;
@@ -223,9 +241,9 @@ export default {
 
 .headerMobile {
   background: white;
-  height: 100px;
-  opacity: 0.8;
   display: none;
+  transition: 0.5s ease-out;
+  transition-delay: 0.5s;
 }
 
 .navigation {

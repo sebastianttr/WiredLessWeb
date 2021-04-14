@@ -221,21 +221,31 @@ export default {
     }
   },
   created() {
-    this.$root.$on("scrollProjekts", msg => {
-      console.log("Scrolling");
+    this.$root.$on("scrollToProjekts", msg => {
+      const yOffset = -60;
       const ele = document.getElementById("projects"); // You need to get your element here
-      ele.scrollIntoView({ behavior: "smooth" });
+      const y = ele.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
     });
 
     this.$root.$on("scrollToSocials", msg => {
-      console.log("Scrolling");
+      const yOffset = -50;
       const ele = document.getElementById("socials"); // You need to get your element here
-      ele.scrollIntoView({ behavior: "smooth" });
+      const y = ele.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    });
+
+    this.$root.$on("scrollToHome", msg => {
+      const ele = document.getElementById("main"); // You need to get your element here
+      const y = ele.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
     });
   },
   beforeDestroy() {
     // Don't forget to turn the listener off before your component is destroyed
-    this.$root.$off("scrollProjekts", () => {});
+    this.$root.$off("scrollToSocials", () => {});
+    this.$root.$off("scrollToProjekts", () => {});
+    this.$root.$off("scrollToHome", () => {});
   }
 };
 </script>
