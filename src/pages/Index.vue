@@ -1,3 +1,7 @@
+<script src="https://aframe.io/releases/1.0.2/aframe.min.js"/>
+<script src="https://unpkg.com/aframe-orbit-controls@1.2.0/dist/aframe-orbit-controls.min.js"/>
+<script src="https://unpkg.com/aframe-supercraft-loader@1.1.3/dist/aframe-supercraft-loader.js"/>
+<script src="https://supereggbert.github.io/aframe-htmlembed-component/dist/build.js"/>
 <template>
   <q-page class="flex flex-center bg-grey-10">
     <!-- Main Section -->
@@ -19,29 +23,30 @@
     <div id="projects" class="fit column wrap justify-center items-center content-center">
       <div style="font-size:50px; color:white;margin:10px;">Projects</div>
       <div class="fit row wrap justify-center items-center content-center">
-        <div class="card">
-          <div class="contentView">pic or 3D</div>
-          <div style="font-size:20px">Flutter App</div>
-        </div>
-        <div class="card">
-          <div class="contentView">pic or 3D</div>
-          <div style="font-size:20px">Flutter App</div>
-        </div>
-        <div class="card">
-          <div class="contentView">pic or 3D</div>
-          <div style="font-size:20px">Flutter App</div>
-        </div>
-        <div class="card">
-          <div class="contentView">pic or 3D</div>
-          <div style="font-size:20px">Flutter App</div>
-        </div>
-        <div class="card">
-          <div class="contentView">pic or 3D</div>
-          <div style="font-size:20px">Flutter App</div>
-        </div>
-        <div class="card">
-          <div class="contentView">pic or 3D</div>
-          <div style="font-size:20px">Flutter App</div>
+        <div v-for="(item,index) in cards" :key="index" class="card">
+          <div class="contentView">
+            <a-scene v-if="index==1" class="aframebox" embedded>
+              <a-assets>
+                <a-asset-item id="cityModel" src="../assets/3D/SensorNodePCB.obj"></a-asset-item>
+              </a-assets>
+              <a-entity rotation="-90 0 0">
+                <a-entity :rotation="roll + ' ' + pitch + ' 0'" scale="0.4 0.4 0.4">
+                  <a-entity position="-144 80 -4" obj-model="obj:#cityModel;"></a-entity>
+                </a-entity>
+              </a-entity>
+
+              <a-entity
+                camera
+                look-controls
+                orbit-controls="target: 0 1.6 -0.5; minDistance: 0.5; maxDistance: 150; initialPosition: 0 5 15"
+              ></a-entity>
+            </a-scene>
+          </div>
+          <div class="q-mt-sm" style="font-size:30px;color:white;max-width:300px;">{{item.title}}</div>
+          <div
+            class="q-mt-sm"
+            style="font-size:20px;color:white;max-width:300px;"
+          >{{item.description}}</div>
         </div>
       </div>
     </div>
@@ -157,6 +162,7 @@
   color: black;
   padding: 10px;
   transition: 500ms;
+  height: 550px;
 }
 
 .card:hover {
@@ -189,6 +195,7 @@
 @media only screen and (max-width: 768px) {
   .card {
     width: 100%;
+    height: auto;
   }
   .wiredlessTitle {
     color: black;
@@ -201,16 +208,85 @@
 }
 </style>
 
-
 <script>
 import { scroll } from "quasar";
 const { getScrollTarget, setScrollPosition } = scroll;
 import { setTimeout } from "timers";
+import Vue from "vue";
+import VueAframe from "vue-aframe";
+
+Vue.use(VueAframe);
 
 export default {
   name: "PageIndex",
   data() {
-    return {};
+    return {
+      roll: 0,
+      pitch: 0,
+      cards: [
+        {
+          title: "ThingsDash",
+          description:
+            "An Internet of Things dashboard application with the ability for the user to create its own UI and manages its things. ",
+          picType: "picture",
+          src: "",
+          madeUsing: "Vue.js | Quasar"
+        },
+        {
+          title: "SensorNode",
+          description:
+            "A Prototyping Platform for internet of things applications. ",
+          picType: "3D",
+          src: "",
+          madeUsing: "KiCad | PlatformIO Embedded Framework"
+        },
+        {
+          title: "Mecanum Wheel Robot",
+          description:
+            "A robot with mecanum wheels able to move in any direction.",
+          picType: "3D",
+          src: "",
+          madeUsing: "Native Android Studio | Arduino"
+        },
+        {
+          title: "Smart Touch Display with ESP32",
+          description:
+            "A touch display which shows the time, weather and gives some smart home functionalities.",
+          picType: "3D",
+          src: "",
+          madeUsing: "ESP-IDF | Arduino"
+        },
+        {
+          title: "LED Matrix ",
+          description: "A LED Matrix Display with WiFi-functionalities",
+          picType: "3D",
+          src: "",
+          madeUsing: "ESP-IDF | Arduino"
+        },
+        {
+          title: "Room-Quality WebApp",
+          description:
+            "A roomquality Web-App for monitoring the Temps & CO2-Levels in classrooms",
+          picType: "picture",
+          src: "Blazor SSR | ASP.NET WebAPI | MySql"
+        },
+        {
+          title: "Room-Quality Mobile App",
+          description:
+            "A roomquality Mobile-App for monitoring the Temps & CO2-Levels in classrooms",
+          picType: "picture",
+          src: "Flutter"
+        },
+        {
+          title: "Blinds Controls",
+          description:
+            "A Device which is connected to the internet to turn on/off the blinds in a house.",
+          picType: "3D",
+          src: "",
+          madeUsing: "ESP-IDF | Arduino"
+        }
+      ]
+    };
   },
   methods: {
     redirectInsta() {
@@ -240,6 +316,11 @@ export default {
       const y = ele.getBoundingClientRect().top + window.pageYOffset;
       window.scrollTo({ top: y, behavior: "smooth" });
     });
+  },
+  computed: {
+    sensorNode() {
+      return require("../assets/images/github_logo.png");
+    }
   },
   beforeDestroy() {
     // Don't forget to turn the listener off before your component is destroyed
