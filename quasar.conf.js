@@ -44,6 +44,20 @@ module.exports = function( /* ctx */ ) {
             'material-icons' // optional, you are not bound to it
         ],
 
+        module: {
+            rules: [{
+                    test: /\.js/,
+                    exclude: /(node_modules)/,
+                    use: ['aframe-super-hot-loader']
+                },
+                {
+                    test: /\.html/,
+                    exclude: /(node_modules)/,
+                    use: ['aframe-super-hot-html-loader']
+                }
+            ]
+        },
+
         // Full list of options: https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
         build: {
             vueRouterMode: 'hash', // available values: 'hash', 'history'
@@ -75,7 +89,8 @@ module.exports = function( /* ctx */ ) {
         devServer: {
             https: false,
             port: 8080,
-            open: true // opens browser window automatically
+            open: true, // opens browser window automatically
+            hot: true
         },
 
         // https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework

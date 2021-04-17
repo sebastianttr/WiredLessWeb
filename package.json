@@ -13,8 +13,11 @@
     "@quasar/extras": "^1.0.0",
     "@vue/composition-api": "^1.0.0-rc.6",
     "aframe": "^1.2.0",
+    "aframe-super-hot-html-loader": "^2.1.0",
+    "aframe-super-hot-loader": "^1.7.0",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "diff-dom": "^4.2.2",
     "quasar": "^1.0.0",
     "vue-aframe": "0.0.0",
     "vue-i18n": "^8.0.0"

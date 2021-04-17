@@ -24,13 +24,13 @@
       <div style="font-size:50px; color:white;margin:10px;">Projects</div>
       <div class="fit row wrap justify-center items-center content-center">
         <div v-for="(item,index) in cards" :key="index" class="card">
-          <div class="contentView">
-            <a-scene v-if="index==1" class="aframebox" embedded>
+          <div v-if="index==1">
+            <a-scene class="aframebox contentView3D q-mb-sm" vr-mode-ui="enabled: false" embedded>
               <a-assets>
-                <a-asset-item id="cityModel" src="../assets/3D/SensorNodePCB.obj"></a-asset-item>
+                <a-asset-item id="cityModel" src="SensorNodePCB.obj"></a-asset-item>
               </a-assets>
-              <a-entity rotation="-90 0 0">
-                <a-entity :rotation="roll + ' ' + pitch + ' 0'" scale="0.4 0.4 0.4">
+              <a-entity rotation="0 0 0">
+                <a-entity rotation="0 0 0" scale="0.4 0.4 0.4">
                   <a-entity position="-144 80 -4" obj-model="obj:#cityModel;"></a-entity>
                 </a-entity>
               </a-entity>
@@ -42,7 +42,13 @@
               ></a-entity>
             </a-scene>
           </div>
-          <div class="q-mt-sm" style="font-size:30px;color:white;max-width:300px;">{{item.title}}</div>
+          <img
+            v-else-if="item.picType=='picture'"
+            class="projectsPic contentViewPicture q-mb-sm"
+            src="ThingsDash.png"
+          >
+
+          <div style="font-size:30px;color:white;max-width:300px;">{{item.title}}</div>
           <div
             class="q-mt-sm"
             style="font-size:20px;color:white;max-width:300px;"
@@ -130,6 +136,15 @@
   object-fit: cover;
 }
 
+.projectsPic {
+  border-style: hidden;
+  border-radius: 10px;
+  float: left;
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
+
 .wiredlessTitle {
   animation: fadein 4s;
   color: black;
@@ -137,8 +152,6 @@
 }
 
 .cardSocials {
-  border: solid #363636;
-  background: #363636;
   border-radius: 10px;
   margin: 10px;
   box-shadow: 2px 2px 15px rgba(0, 10, 12, 0.8);
@@ -185,11 +198,15 @@
   src: "../assets/fonts/Montserrat-Regular.ttf";
 }
 
-.contentView {
+.contentViewPicture {
   width: 300px;
   height: 300px;
-  border: solid black;
-  border-radius: 10px;
+  background-color: white;
+}
+
+.contentView3D {
+  width: 300px;
+  height: 300px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -205,6 +222,16 @@
   .cardSocials {
     width: 100%;
   }
+
+  .contentViewPicture {
+    width: 100%;
+    height: auto;
+    background-color: white;
+  }
+
+  .contentView3D {
+    width: 100%;
+  }
 }
 </style>
 
@@ -214,6 +241,8 @@ const { getScrollTarget, setScrollPosition } = scroll;
 import { setTimeout } from "timers";
 import Vue from "vue";
 import VueAframe from "vue-aframe";
+import "../libs/aframe_orbit.js";
+import "../libs/aframe-supercratf-loader.js";
 
 Vue.use(VueAframe);
 
