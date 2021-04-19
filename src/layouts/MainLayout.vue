@@ -142,7 +142,6 @@ export default {
       this.$root.$emit("scrollToHome", "scroll");
     },
     openContactMeDialog() {
-      console.log("dia");
       this.dialog = true;
     },
     onSubmit() {
