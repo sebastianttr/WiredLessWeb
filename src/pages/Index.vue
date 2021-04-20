@@ -75,12 +75,42 @@
 
     <div id="techstack" class="fit column wrap justify-center items-center content-center q-ma-md">
       <div style="font-size:50px; color:white;margin:10px;">My Tech Stack</div>
-      <div class="fit column wrap justify-center items-center content-center">
-        <div style="position:relative;margin-left:-35vw;margin-top:60px;">
-          <div id="stack__layer1" class="layer-stack__layer stack__layer1"></div>
-          <div id="stack__layer2" class="layer-stack__layer stack__layer2"></div>
-          <div id="stack__layer3" class="layer-stack__layer stack__layer3"></div>
+      <div class="fit row wrap justify-center items-start content-center">
+        <div class="stackLayer">
+          <div id="layer1" class="layer-stack__layer stack__layer1">
+            <img class="stackImg" src="world-wide-web.png">
+          </div>
+          <div id="layer2" class="layer-stack__layer stack__layer2">
+            <img class="stackImg" src="smartphone.png">
+          </div>
+          <div id="layer3" class="layer-stack__layer stack__layer3">
+            <img class="stackImg" src="computer-micro-chip.png">
+          </div>
         </div>
+        <div class="stackDesc" style="margin-left:5vw">
+          <div class="text-h4 q-ml-lg stackdesc__layer1" id="desc_layer1">
+            Web
+            <div
+              style="font-size:20px;"
+            >Vue.js | Blazor SSR for Frontend; ASP.NET | Node.js for Backend</div>
+          </div>
+          <div class="text-h4 q-ml-lg stackdesc__layer2" id="desc_layer2">
+            Mobile
+            <div style="font-size:20px;">Flutter | Quasar + Vue.js</div>
+          </div>
+          <div class="text-h4 q-ml-lg stackdesc__layer2" id="desc_layer3">
+            Embedded
+            <div style="font-size:20px;">MDK-ARM | ESP-IDF | Arduino + PlatformIO</div>
+          </div>
+        </div>
+      </div>
+      <div class="chipStyle flex row wrap justify-center items-center content-center">
+        <q-chip v-for="(item,index) in stacks" :key="index+1000" size="lg" dense>
+          <q-avatar>
+            <img :src="item.imgSrc">
+          </q-avatar>
+          <div style="font-size:25px;">{{item.name}}</div>
+        </q-chip>
       </div>
     </div>
 
@@ -235,6 +265,11 @@
   height: 300px;
 }
 
+.stackLayer {
+  position: relative;
+  margin-top: 60px;
+}
+
 .layer-stack__layer {
   height: 250px;
   width: 250px;
@@ -244,6 +279,25 @@
   transition: all 0.3s ease-out;
   border: solid grey;
   border-radius: 10px;
+}
+
+.stackdesc__layer1 {
+  color: white;
+  transition: all 0.3s ease-out;
+  top: 150px;
+  position: relative;
+}
+
+.stackdesc__layer2 {
+  color: white;
+  transition: all 0.3s ease-out;
+  position: relative;
+}
+
+.stackdesc__layer3 {
+  color: white;
+  transition: all 0.3s ease-out;
+  position: relative;
 }
 
 .stack__layer1 {
@@ -260,6 +314,21 @@
 .stack__layer3 {
   transform: rotateX(45deg) rotateZ(45deg) translateZ(600px);
   background: #363636;
+}
+.stackImg {
+  margin-top: 35px;
+  margin-left: 35px;
+
+  object-fit: cover;
+  max-width: 175px;
+}
+
+.stackDesc {
+  display: auto;
+}
+
+.chipStyle {
+  max-width: 40vh;
 }
 
 @media only screen and (max-width: 768px) {
@@ -284,6 +353,14 @@
 
   .contentView3D {
     width: 100%;
+  }
+
+  .chipStyle {
+    max-width: 100%;
+  }
+
+  .stackDesc {
+    display: none;
   }
 }
 </style>
@@ -373,6 +450,51 @@ export default {
           src: "",
           madeUsing: "ESP-IDF | Arduino"
         }
+      ],
+      stacks: [
+        {
+          name: "Flutter",
+          imgSrc: "https://img.icons8.com/color/452/flutter.png"
+        },
+        {
+          name: "Vue.js",
+          imgSrc:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1200px-Vue.js_Logo_2.svg.png"
+        },
+        {
+          name: "Quasar",
+          imgSrc: "favicon.ico"
+        },
+        {
+          name: "Blazor",
+          imgSrc:
+            "https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2019/04/BrandBlazor_nohalo_1000x.png"
+        },
+        {
+          name: "ASP.NET",
+          imgSrc:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5jBXxdLLo5W9GdGSPHdb0aY07TKpVddtCCnLk68mZ1OM_CiPzzlXxoZpxyZylx8k8R8E&usqp=CAU"
+        },
+        {
+          name: "Node.js",
+          imgSrc:
+            "https://icons-for-free.com/iconfiles/png/512/install+javascript+js+node+npm+tools+icon-1320165731324625592.png"
+        },
+        {
+          name: "Arduino",
+          imgSrc:
+            "https://w7.pngwing.com/pngs/676/338/png-transparent-arduino-computer-software-library-electronics-computer-electronics-baby-computer-thumbnail.png"
+        },
+        {
+          name: "ESP-IDF",
+          imgSrc:
+            "https://media.glassdoor.com/sqll/1451712/espressif-squarelogo-1584093022410.png"
+        },
+        {
+          name: "MDK-ARM",
+          imgSrc:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKxpuGMpGHAFyc9ElwwrBGnWwfdGBfaRCyJKxeGOM4aZPP8b54Yv6pUHZMoiv4ILjz8dM&usqp=CAU"
+        }
       ]
     };
   },
@@ -409,13 +531,25 @@ export default {
       var posLayer2 = this.map(percentage, 0, 100, positionedLayer2, 100);
       var posLayer3 = this.map(percentage, 0, 100, positionedLayer3, 200);
 
-      document.getElementById("stack__layer2").style.opacity = percentage / 100;
-      document.getElementById("stack__layer2").style.transform =
+      document.getElementById("layer2").style.opacity = percentage / 100;
+      document.getElementById("layer2").style.transform =
         "rotateX(45deg) rotateZ(45deg) translateZ(" + posLayer2 + "px)";
 
-      document.getElementById("stack__layer3").style.opacity = percentage / 100;
-      document.getElementById("stack__layer3").style.transform =
+      document.getElementById("layer3").style.opacity = percentage / 100;
+      document.getElementById("layer3").style.transform =
         "rotateX(45deg) rotateZ(45deg) translateZ(" + posLayer3 + "px)";
+
+      //repurpose
+      posLayer2 = this.map(percentage, 0, 100, 100, 250);
+      posLayer3 = this.map(percentage, 0, 100, 100, 350);
+
+      document.getElementById("desc_layer2").style.opacity = percentage / 100;
+      document.getElementById("desc_layer2").style.top = posLayer2 + "px";
+      //"translateY(" + posLayer2 + "px)";
+
+      document.getElementById("desc_layer3").style.opacity = percentage / 100;
+      document.getElementById("desc_layer3").style.top = posLayer3 + "px";
+      //"translateY(" + posLayer2 + "px)";
     }
   },
   created() {
@@ -432,6 +566,10 @@ export default {
 
     this.$root.$on("scrollToHome", msg => {
       v.scrollToSection("main");
+    });
+
+    this.$root.$on("scrollToStack", msg => {
+      v.scrollToSection("techstack");
     });
 
     document.addEventListener("scroll", function(e) {
@@ -455,7 +593,7 @@ export default {
         scrollRelativeToTop_TechStack >= 0 ? scrollRelativeToTop_TechStack : 0;
 
       var mappedRange_techstack = Math.round(
-        v.map(scrollRelativeToTop_TechStack, min1, max1, 100, 0)
+        v.map(scrollRelativeToTop_TechStack, min1, max1, 100, 0) //has to bee 200%, because the other stacks opacity wont be 100% at full botom scroll
       );
 
       //console.log(mappedRange_techstack);

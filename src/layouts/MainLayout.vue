@@ -6,6 +6,9 @@
         <div @click="scrollToProjects()">
           <div class="mobileNavs">Projects</div>
         </div>
+        <div @click="scrollToStack()">
+          <div class="mobileNavs">My Stack</div>
+        </div>
         <div @click="scrollToSocials()">
           <div class="mobileNavs">Socials</div>
         </div>
@@ -27,6 +30,9 @@
               </div>
               <div class="navigation" @click="scrollToProjects()">
                 <div style="pointer-events: none;">Projects</div>
+              </div>
+              <div class="navigation" @click="scrollToStack()">
+                <div style="pointer-events: none;">My Stack</div>
               </div>
               <div class="navigation" @click="scrollToSocials()">
                 <div style="pointer-events: none;">Socials</div>
@@ -141,6 +147,9 @@ export default {
     scrollToHome() {
       this.$root.$emit("scrollToHome", "scroll");
     },
+    scrollToStack() {
+      this.$root.$emit("scrollToStack", "scroll");
+    },
     openContactMeDialog() {
       this.dialog = true;
     },
@@ -181,7 +190,7 @@ export default {
   height: 100vh;
   width: 0;
   position: fixed;
-  z-index: 1;
+  z-index: 4;
   top: 0;
   left: 0;
   background-color: rgb(0, 0, 0);
