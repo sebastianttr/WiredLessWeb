@@ -6,15 +6,13 @@
   <q-page id="page" class="flex flex-center bg-grey-10">
     <!-- Main Section -->
 
-    <div id="main" class="main" style="color:white">
+    <div id="main" class="main" style="background-color:white;">
       <div class="fit column wrap justify-center items-start content-center">
-        <div class="fadeInThisIs" style="font-size:20px;color:black;">This is</div>
+        <div class="fadeInThisIs" style="font-size:20px;">This is</div>
 
-        <div class="wiredlessTitle">
-          <b>@wiredlessmaker</b>
-        </div>
+        <div class="wiredlessTitle">@wiredlessmaker</div>
 
-        <div class="fadeInAka" style="font-size:20px;color:black;">also known as Sebastian Tatar</div>
+        <div class="fadeInAka" style="font-size:20px;">also known as Sebastian Tatar</div>
       </div>
     </div>
 
@@ -90,27 +88,35 @@
         <div class="stackDesc" style="margin-left:5vw">
           <div class="text-h4 q-ml-lg stackdesc__layer1" id="desc_layer1">
             Web
-            <div
-              style="font-size:20px;"
-            >Vue.js | Blazor SSR for Frontend; ASP.NET | Node.js for Backend</div>
+            <br>
+            <q-chip v-for="(items,index) in stacksWeb" :key="index+1000" size="lg" dense>
+              <q-avatar>
+                <img :src="items.imgSrc">
+              </q-avatar>
+              <div style="font-size:25px;">{{items.name}}</div>
+            </q-chip>
           </div>
           <div class="text-h4 q-ml-lg stackdesc__layer2" id="desc_layer2">
             Mobile
-            <div style="font-size:20px;">Flutter | Quasar + Vue.js</div>
+            <br>
+            <q-chip v-for="(items,index) in stacksMobile" :key="index+1000" size="lg" dense>
+              <q-avatar>
+                <img :src="items.imgSrc">
+              </q-avatar>
+              <div style="font-size:25px;">{{items.name}}</div>
+            </q-chip>
           </div>
           <div class="text-h4 q-ml-lg stackdesc__layer2" id="desc_layer3">
             Embedded
-            <div style="font-size:20px;">MDK-ARM | ESP-IDF | Arduino + PlatformIO</div>
+            <br>
+            <q-chip v-for="(items,index) in stacksEmbedded" :key="index+1000" size="lg" dense>
+              <q-avatar>
+                <img :src="items.imgSrc">
+              </q-avatar>
+              <div style="font-size:25px;">{{items.name}}</div>
+            </q-chip>
           </div>
         </div>
-      </div>
-      <div class="chipStyle flex row wrap justify-center items-center content-center">
-        <q-chip v-for="(item,index) in stacks" :key="index+1000" size="lg" dense>
-          <q-avatar>
-            <img :src="item.imgSrc">
-          </q-avatar>
-          <div style="font-size:25px;">{{item.name}}</div>
-        </q-chip>
       </div>
     </div>
 
@@ -159,10 +165,14 @@
 }
 
 .fadeInThisIs {
+  background-color: black;
+  color: white;
   animation: fadein 1.4s;
 }
 
 .fadeInAka {
+  background-color: black;
+  color: white;
   animation: fadein 3.2s;
 }
 
@@ -202,8 +212,11 @@
 }
 
 .wiredlessTitle {
-  animation: fadein 4s;
-  color: black;
+  animation-name: reducetime;
+  animation-duration: 4s;
+  background-color: black;
+  color: white;
+  left: 0;
   font-size: 40px;
 }
 
@@ -249,11 +262,6 @@
   opacity: 1;
 }
 
-@font-face {
-  font-family: "Montserrat";
-  src: "../assets/fonts/Montserrat-Regular.ttf";
-}
-
 .contentViewPicture {
   width: 300px;
   height: 300px;
@@ -261,6 +269,7 @@
 }
 
 .contentView3D {
+  /*pointer-events: none;*/
   width: 300px;
   height: 300px;
 }
@@ -331,13 +340,17 @@
   max-width: 40vh;
 }
 
+@font-face {
+  font-family: "Montserrat";
+  src: "../assets/fonts/Montserrat-Regular.ttf";
+}
+
 @media only screen and (max-width: 768px) {
   .card {
     width: 100%;
     height: auto;
   }
   .wiredlessTitle {
-    color: black;
     font-size: 30px;
   }
 
@@ -451,11 +464,7 @@ export default {
           madeUsing: "ESP-IDF | Arduino"
         }
       ],
-      stacks: [
-        {
-          name: "Flutter",
-          imgSrc: "https://img.icons8.com/color/452/flutter.png"
-        },
+      stacksWeb: [
         {
           name: "Vue.js",
           imgSrc:
@@ -479,7 +488,24 @@ export default {
           name: "Node.js",
           imgSrc:
             "https://icons-for-free.com/iconfiles/png/512/install+javascript+js+node+npm+tools+icon-1320165731324625592.png"
+        }
+      ],
+      stacksMobile: [
+        {
+          name: "Flutter",
+          imgSrc: "https://img.icons8.com/color/452/flutter.png"
         },
+        {
+          name: "Vue.js",
+          imgSrc:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1200px-Vue.js_Logo_2.svg.png"
+        },
+        {
+          name: "Quasar",
+          imgSrc: "favicon.ico"
+        }
+      ],
+      stacksEmbedded: [
         {
           name: "Arduino",
           imgSrc:
@@ -521,8 +547,14 @@ export default {
       var openedDistance = 0;
     },
     compute3DModelsTransformation(percentage) {
-      this.modelsPosition = this.map(percentage, 0, 100, 30, 85);
-      this.modelsRotation = this.map(percentage, 0, 100, -110, 0);
+      this.modelsPosition = this.map(percentage, 0, 100, 30, 85); //position up 3D Models
+      this.modelsRotation = this.map(percentage, 0, 100, -110, 0); //rotate 3D Models
+
+      const c = this.map(percentage, 8, 100, 255, 0); //color reranged from 0-255
+      //console.log(c);
+      document.getElementById(
+        "main"
+      ).style.backgroundColor = `rgb(${c},${c},${c})`;
     },
     computeStackPositions(percentage) {
       var positionedLayer2 = 300;
@@ -550,6 +582,9 @@ export default {
       document.getElementById("desc_layer3").style.opacity = percentage / 100;
       document.getElementById("desc_layer3").style.top = posLayer3 + "px";
       //"translateY(" + posLayer2 + "px)";
+    },
+    limitRange(value, min, max) {
+      return Math.min(Math.max(parseInt(value), min), max);
     }
   },
   created() {
@@ -574,8 +609,10 @@ export default {
 
     document.addEventListener("scroll", function(e) {
       //projects
+
       var scrollRelativeToTop =
         document.getElementById("main").getBoundingClientRect().bottom - 60;
+      // -60 becuase navigation bar
       scrollRelativeToTop = scrollRelativeToTop >= 0 ? scrollRelativeToTop : 0;
       var min1 = 0;
       var max1 = window.innerHeight;
@@ -583,6 +620,7 @@ export default {
       var mappedRange_Projects = Math.round(
         v.map(scrollRelativeToTop, min1, max1, 100, 0)
       );
+      mappedRange_Projects = v.limitRange(mappedRange_Projects, 0, 100);
 
       //tech stack
 
@@ -593,15 +631,12 @@ export default {
         scrollRelativeToTop_TechStack >= 0 ? scrollRelativeToTop_TechStack : 0;
 
       var mappedRange_techstack = Math.round(
-        v.map(scrollRelativeToTop_TechStack, min1, max1, 100, 0) //has to bee 200%, because the other stacks opacity wont be 100% at full botom scroll
+        v.map(scrollRelativeToTop_TechStack, min1, max1, 100, 0) //has to bee 200%, because the other stacks opacity wont be 100% at full bottom scroll
       );
-
-      //console.log(mappedRange_techstack);
-      //console.log(scrollRelativeToTop_TechStack);
+      mappedRange_techstack = v.limitRange(mappedRange_techstack, 0, 100);
 
       //computes
 
-      //console.log(mappedRange);
       v.computeLaptopAngle(mappedRange_Projects);
       v.computeLaptopCamDistance(mappedRange_Projects);
       v.compute3DModelsTransformation(mappedRange_Projects);
