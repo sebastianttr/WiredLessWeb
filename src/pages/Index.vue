@@ -24,20 +24,29 @@
         <div v-for="(item,index) in cards" :key="index" class="card">
           <a-scene class="aframebox contentView3D q-mb-sm" vr-mode-ui="enabled: false" embedded>
             <a-assets>
-              <a-asset-item id="cityModel" src="SensorNodePCB.obj"></a-asset-item>
+              <a-asset-item :id="item.title" :src="item.src"></a-asset-item>
               <img id="my-image" src="Dashboard_Bild1.PNG">
             </a-assets>
+
             <a-entity
               camera
               look-controls
               orbit-controls="target: 0 1.6 -0.5; minDistance: 0.5; maxDistance: 150; initialPosition: 0 5 15"
             >
-              <a-entity v-if="index==1" rotation="0 0 0">
-                <a-entity :rotation="'0 '+modelsRotation+' 0'" scale="0.4 0.4 0.4">
-                  <a-entity :position="'-144 '+modelsPosition+' -4'" obj-model="obj:#cityModel;"></a-entity>
+              <a-entity
+                :rotation="item.options.rotation.yaw + ' ' +  item.options.rotation.roll + ' ' +item.options.rotation.pitch"
+                :scale="item.options.scale.x + ' ' + item.options.scale.y+0.3 + ' ' +item.options.scale.z"
+                :position="item.options.position.x + ' ' +item.options.position.y + ' '+ item.options.position.z"
+              >
+                <a-entity :rotation="'0 ' +  modelsRotation + ' 0'">
+                  <a-entity
+                    :obj-model="'obj:#'+item.title+';'"
+                    :position="'-144 ' +modelsPosition+ ' -4'"
+                  ></a-entity>
                 </a-entity>
               </a-entity>
             </a-entity>
+            <!--
             <a-entity
               camera
               look-controls="false"
@@ -58,6 +67,7 @@
                 </a-entity>
               </a-entity>
             </a-entity>
+            -->
           </a-scene>
 
           <div style="font-size:30px;color:white;max-width:300px;">{{item.title}}</div>
@@ -137,6 +147,49 @@
         </div>
       </div>
     </div>
+    <q-dialog
+      v-model="dialog"
+      persistent
+      :maximized="true"
+      transition-show="slide-up"
+      transition-hide="slide-down"
+    >
+      <q-card class="bg-primary text-white">
+        <q-bar>
+          <q-space/>
+
+          <q-btn
+            dense
+            flat
+            icon="minimize"
+            @click="maximizedToggle = false"
+            :disable="!maximizedToggle"
+          >
+            <q-tooltip v-if="maximizedToggle" content-class="bg-white text-primary">Minimize</q-tooltip>
+          </q-btn>
+          <q-btn
+            dense
+            flat
+            icon="crop_square"
+            @click="maximizedToggle = true"
+            :disable="maximizedToggle"
+          >
+            <q-tooltip v-if="!maximizedToggle" content-class="bg-white text-primary">Maximize</q-tooltip>
+          </q-btn>
+          <q-btn dense flat icon="close" v-close-popup>
+            <q-tooltip content-class="bg-white text-primary">Close</q-tooltip>
+          </q-btn>
+        </q-bar>
+
+        <q-card-section>
+          <div class="text-h6">Alert</div>
+        </q-card-section>
+
+        <q-card-section
+          class="q-pt-none"
+        >Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis perferendis totam, ea at omnis vel numquam exercitationem aut, natus minima, porro labore.</q-card-section>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -395,6 +448,7 @@ export default {
   name: "PageIndex",
   data() {
     return {
+      dialog: false,
       roll: 0,
       pitch: 0,
       laptopModelAngels: 0,
@@ -407,53 +461,132 @@ export default {
           description:
             "An Internet of Things dashboard application with the ability for the user to create its own UI and manages its things. ",
           picType: "picture",
-          src: "",
-          madeUsing: "Vue.js | Quasar"
+          src: "ThingsDash.obj",
+          madeUsing: "Vue.js | Quasar",
+          options: {
+            scale: {
+              x: 0,
+              y: 0,
+              z: 0
+            },
+            rotation: {
+              yaw: 0,
+              roll: 0,
+              pitch: 0
+            },
+            position: {
+              x: 0,
+              y: 0,
+              z: 0
+            }
+          }
         },
         {
           title: "SensorNode",
           description:
             "A Prototyping Platform for internet of things applications. ",
           picType: "3D",
-          src: "",
-          madeUsing: "KiCad | PlatformIO Embedded Framework"
+          src: "SensorNodePCB.obj",
+          madeUsing: "KiCad | PlatformIO Embedded Framework",
+          options: {
+            scale: {
+              x: 0.45,
+              y: 0.35,
+              z: 0.35
+            },
+            rotation: {
+              yaw: 0,
+              roll: 0,
+              pitch: 0
+            },
+            position: {
+              x: 0,
+              y: 0,
+              z: 0
+            }
+          }
         },
         {
           title: "Mecanum Wheel Robot",
           description:
             "A robot with mecanum wheels able to move in any direction.",
           picType: "3D",
-          src: "",
-          madeUsing: "Native Android Studio | Arduino"
+          madeUsing: "Native Android Studio | Arduino",
+          options: {
+            scale: {
+              x: 0,
+              y: 0,
+              z: 0
+            },
+            rotation: {
+              yaw: 0,
+              roll: 0,
+              pitch: 0
+            },
+            position: {
+              x: 8.5,
+              y: 3.5,
+              z: 0
+            }
+          }
         },
         {
           title: "Smart Touch Display with ESP32",
           description:
             "A touch display which shows the time, weather and gives some smart home functionalities.",
           picType: "3D",
-          src: "",
-          madeUsing: "ESP-IDF | Arduino"
+          madeUsing: "ESP-IDF | Arduino",
+          src: "ESP32_TFT_Board.obj",
+          options: {
+            scale: {
+              x: 0.25,
+              y: 0.25,
+              z: 0.25
+            },
+            rotation: {
+              yaw: 0,
+              roll: 0,
+              pitch: 0
+            },
+            position: {
+              x: 8.5,
+              y: 3.5,
+              z: 0
+            }
+          }
         },
+
+        {
+          title: "Room-Quality Mobile/Web App",
+          description:
+            "A roomquality Mobile/Web App for monitoring the Temps & CO2-Levels in classrooms",
+          picType: "picture",
+          src: "RaumklimaApp.obj",
+          options: {
+            scale: {
+              x: 0.25,
+              y: 0.25,
+              z: 0.25
+            },
+            rotation: {
+              yaw: 0,
+              roll: 0,
+              pitch: 0
+            },
+            position: {
+              x: 8.5,
+              y: 3.5,
+              z: 0
+            }
+          }
+        }
+        /*
         {
           title: "LED Matrix ",
           description: "A LED Matrix Display with WiFi-functionalities",
           picType: "3D",
           src: "",
           madeUsing: "ESP-IDF | Arduino"
-        },
-        {
-          title: "Room-Quality WebApp",
-          description:
-            "A roomquality Web-App for monitoring the Temps & CO2-Levels in classrooms",
-          picType: "picture",
-          src: "Blazor SSR | ASP.NET WebAPI | MySql"
-        },
-        {
-          title: "Room-Quality Mobile App",
-          description:
-            "A roomquality Mobile-App for monitoring the Temps & CO2-Levels in classrooms",
-          picType: "picture",
-          src: "Flutter"
         },
         {
           title: "Blinds Controls",
@@ -463,6 +596,7 @@ export default {
           src: "",
           madeUsing: "ESP-IDF | Arduino"
         }
+        */
       ],
       stacksWeb: [
         {
