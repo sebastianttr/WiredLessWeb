@@ -25,7 +25,7 @@
           <a-scene class="aframebox contentView3D q-mb-sm" vr-mode-ui="enabled: false" embedded>
             <a-assets>
               <a-asset-item :id="item.title" :src="item.src"></a-asset-item>
-              <img id="my-image" src="Dashboard_Bild1.PNG">
+              <img :id="item.title+'Pic'" :src="item.imgSrc">
             </a-assets>
 
             <a-entity
@@ -33,19 +33,31 @@
               look-controls
               orbit-controls="target: 0 1.6 -0.5; minDistance: 0.5; maxDistance: 150; initialPosition: 0 5 15"
             >
-              <a-entity
-                :rotation="item.options.rotation.yaw + ' ' +  item.options.rotation.roll + ' ' +item.options.rotation.pitch"
-                :scale="item.options.scale.x + ' ' + item.options.scale.y+0.3 + ' ' +item.options.scale.z"
-                :position="item.options.position.x + ' ' +item.options.position.y + ' '+ item.options.position.z"
-              >
-                <a-entity :rotation="'0 ' +  modelsRotation + ' 0'">
-                  <a-entity
-                    :obj-model="'obj:#'+item.title+';'"
-                    :position="'-144 ' +modelsPosition+ ' -4'"
-                  ></a-entity>
+              <a-entity rotation="-7 0 0">
+                <a-entity
+                  :rotation="item.options.rotation.yaw + ' ' +  item.options.rotation.roll + ' ' +item.options.rotation.pitch"
+                  :scale="item.options.scale.x + ' ' + item.options.scale.y+0.3 + ' ' +item.options.scale.z"
+                  :position="item.options.position.x + ' ' +item.options.position.y + ' '+ item.options.position.z"
+                >
+                  <a-entity :rotation="'0 ' +  modelsRotation + ' 0'">
+                    <a-entity
+                      :obj-model="'obj:#'+item.title+';'"
+                      :position="'-144 ' +modelsPosition+ ' -4'"
+                    >
+                      <a-image
+                        v-if="item.type=='app'"
+                        scale="142.15 172.15 100.15"
+                        position="79 38.5 9"
+                        rotation="0 0 0"
+                        width="0.65"
+                        :src="'#' + item.title+'Pic'"
+                      ></a-image>
+                    </a-entity>
+                  </a-entity>
                 </a-entity>
               </a-entity>
             </a-entity>
+
             <!--
             <a-entity
               camera
@@ -449,6 +461,7 @@ export default {
   data() {
     return {
       dialog: false,
+      maximizedToggle: true,
       roll: 0,
       pitch: 0,
       laptopModelAngels: 0,
@@ -460,14 +473,15 @@ export default {
           title: "ThingsDash",
           description:
             "An Internet of Things dashboard application with the ability for the user to create its own UI and manages its things. ",
-          picType: "picture",
-          src: "ThingsDash.obj",
+          type: "app",
+          src: "PhoneMockUp.obj",
+          imgSrc: "ThingsDash_iphone12promaxgraphite_portrait.PNG",
           madeUsing: "Vue.js | Quasar",
           options: {
             scale: {
-              x: 0,
-              y: 0,
-              z: 0
+              x: 0.15,
+              y: 0.15,
+              z: 0.15
             },
             rotation: {
               yaw: 0,
@@ -475,9 +489,9 @@ export default {
               pitch: 0
             },
             position: {
-              x: 0,
-              y: 0,
-              z: 0
+              x: 10,
+              y: -18,
+              z: -3.5
             }
           }
         },
@@ -485,12 +499,12 @@ export default {
           title: "SensorNode",
           description:
             "A Prototyping Platform for internet of things applications. ",
-          picType: "3D",
+          type: "device",
           src: "SensorNodePCB.obj",
           madeUsing: "KiCad | PlatformIO Embedded Framework",
           options: {
             scale: {
-              x: 0.45,
+              x: 0.35,
               y: 0.35,
               z: 0.35
             },
@@ -510,13 +524,15 @@ export default {
           title: "Mecanum Wheel Robot",
           description:
             "A robot with mecanum wheels able to move in any direction.",
-          picType: "3D",
+          type: "app",
           madeUsing: "Native Android Studio | Arduino",
+          src: "PhoneMockUp.obj",
+          imgSrc: "MecanumWheelRobot_iphone12promaxgraphite_portrait.PNG",
           options: {
             scale: {
-              x: 0,
-              y: 0,
-              z: 0
+              x: 0.15,
+              y: 0.15,
+              z: 0.15
             },
             rotation: {
               yaw: 0,
@@ -524,9 +540,9 @@ export default {
               pitch: 0
             },
             position: {
-              x: 8.5,
-              y: 3.5,
-              z: 0
+              x: 10,
+              y: -18,
+              z: -3.5
             }
           }
         },
@@ -534,7 +550,7 @@ export default {
           title: "Smart Touch Display with ESP32",
           description:
             "A touch display which shows the time, weather and gives some smart home functionalities.",
-          picType: "3D",
+          type: "device",
           madeUsing: "ESP-IDF | Arduino",
           src: "ESP32_TFT_Board.obj",
           options: {
@@ -560,13 +576,14 @@ export default {
           title: "Room-Quality Mobile/Web App",
           description:
             "A roomquality Mobile/Web App for monitoring the Temps & CO2-Levels in classrooms",
-          picType: "picture",
-          src: "RaumklimaApp.obj",
+          type: "app",
+          src: "PhoneMockUp.obj",
+          imgSrc: "RaumklimaApp_iphone12promaxgraphite_portrait.PNG",
           options: {
             scale: {
-              x: 0.25,
-              y: 0.25,
-              z: 0.25
+              x: 0.15,
+              y: 0.15,
+              z: 0.15
             },
             rotation: {
               yaw: 0,
@@ -574,9 +591,9 @@ export default {
               pitch: 0
             },
             position: {
-              x: 8.5,
-              y: 3.5,
-              z: 0
+              x: 10,
+              y: -18,
+              z: -3.5
             }
           }
         }
@@ -584,7 +601,7 @@ export default {
         {
           title: "LED Matrix ",
           description: "A LED Matrix Display with WiFi-functionalities",
-          picType: "3D",
+          type: "device",
           src: "",
           madeUsing: "ESP-IDF | Arduino"
         },
@@ -592,7 +609,7 @@ export default {
           title: "Blinds Controls",
           description:
             "A Device which is connected to the internet to turn on/off the blinds in a house.",
-          picType: "3D",
+          type: "device",
           src: "",
           madeUsing: "ESP-IDF | Arduino"
         }
