@@ -115,6 +115,17 @@
 
     <q-page-container>
       <router-view/>
+      <q-page-sticky position="bottom-right" :offset="[18, 18]">
+        <transition name="slide-fade">
+          <q-btn
+            v-if="scrollToTopFabActive"
+            fab
+            icon="keyboard_arrow_up"
+            color="deep-orange-10"
+            @click="scrollToHome()"
+          />
+        </transition>
+      </q-page-sticky>
     </q-page-container>
 
     <div class="footer fit column wrap justify-center items-center content-center">
@@ -143,7 +154,8 @@ export default {
       message: "",
       submitDone: false,
       styleForm: "max-height:100vh;",
-      showMobileToolBar: true
+      showMobileToolBar: true,
+      scrollToTopFabActive: false
     };
   },
   methods: {
@@ -178,11 +190,35 @@ export default {
       this.showMobileToolBar = true;
       document.getElementById("myNav").style.width = "0%";
     }
+  },
+  beforeMount() {
+    let v = this;
+    let scrollMemory = 0;
+    let scrollDelta = 0;
+    document.addEventListener("scroll", function(e) {
+      var scrollRelativeToTop =
+        document.getElementById("main").getBoundingClientRect().bottom - 60;
+
+      //console.log(scrollRelativeToTop);
+      v.scrollToTopFabActive = scrollRelativeToTop <= 0;
+    });
   }
 };
 </script>
 
 <style lang="scss">
+.slide-fade-enter-active {
+  transition: all 0.5s ease;
+  transform: translateX(0px) rotate(0deg);
+}
+.slide-fade-leave-active {
+  transition: all 0.5s ease;
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateX(200px) rotate(270deg);
+}
+
 .form {
   width: 100%;
   padding: 0 18px;

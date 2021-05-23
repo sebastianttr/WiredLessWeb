@@ -38,6 +38,11 @@
       <div style="font-size:50px; color:white;margin:10px;">Projects</div>
       <div class="fit row wrap justify-center items-center content-center">
         <div v-for="(item,index) in cards" :key="index" class="card">
+          <q-img
+            :src="item.src"
+            :img-style="{'border-radius':'15px','box-shadow': '2px 2px 15px rgba(0, 10, 12, 0.8);'}"
+            :ratio="1"
+          />
           <!--
           <a-scene class="aframebox contentView3D q-mb-sm" vr-mode-ui="enabled: false" embedded>
             <a-assets>
@@ -99,7 +104,7 @@
           </a-scene>
           -->
 
-          <div style="font-size:30px;color:white;max-width:300px;">{{item.title}}</div>
+          <div style="font-size:30px;color:white;max-width:300px;margin-top:10px;">{{item.title}}</div>
           <div
             class="q-mt-sm"
             style="font-size:20px;color:white;max-width:300px;"
@@ -278,7 +283,7 @@ export default {
           description:
             "An Internet of Things dashboard application with the ability for the user to create its own UI and manages its things. ",
           type: "app",
-          src: "PhoneMockUp.obj",
+          src: "/pictures/ThingsDash.PNG",
           imgSrc: "ThingsDash_iphone12promaxgraphite_portrait.PNG",
           madeUsing: "Vue.js | Quasar",
           options: {
@@ -304,7 +309,7 @@ export default {
           description:
             "A Prototyping Platform for internet of things applications. ",
           type: "device",
-          src: "SensorNodePCB.obj",
+          src: "/pictures/SensorNode.PNG",
           madeUsing: "KiCad | PlatformIO Embedded Framework",
           options: {
             scale: {
@@ -330,7 +335,7 @@ export default {
             "A robot with mecanum wheels able to move in any direction.",
           type: "app",
           madeUsing: "Native Android Studio | Arduino",
-          src: "PhoneMockUp.obj",
+          src: "/pictures/MecanumWheelRobot.PNG",
           imgSrc: "MecanumWheelRobot_iphone12promaxgraphite_portrait.PNG",
           options: {
             scale: {
@@ -356,7 +361,7 @@ export default {
             "A touch display which shows the time, weather and gives some smart home functionalities.",
           type: "device",
           madeUsing: "ESP-IDF | Arduino",
-          src: "ESP32_TFT_Board.obj",
+          src: "/pictures/SmartHomeTFT.PNG",
           options: {
             scale: {
               x: 0.25,
@@ -381,7 +386,7 @@ export default {
           description:
             "A roomquality Mobile/Web App for monitoring the Temps & CO2-Levels in classrooms",
           type: "app",
-          src: "PhoneMockUp.obj",
+          src: "/pictures/RaumklimaAppPNG.PNG",
           imgSrc: "RaumklimaApp_iphone12promaxgraphite_portrait.PNG",
           options: {
             scale: {
@@ -486,7 +491,7 @@ export default {
           videopath: "/videos/webrtc_presentration_app.mp4"
         },
         {
-          title: "ThingsDash - An app for your Internet of Things apps",
+          title: "ThingsDash - An app for your Internet of Things uses",
           description:
             "A dashboard application for visualizing and managing data from smart devices.",
           link: "https://iotdev.htlwy.ac.at/website/dashboard/index.html#/",
