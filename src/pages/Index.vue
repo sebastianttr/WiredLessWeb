@@ -13,15 +13,32 @@
         <div class="wiredlessTitle">@wiredlessmaker</div>
 
         <div class="fadeInAka" style="font-size:20px;">also known as Sebastian Tatar</div>
+        <div class="row justify-center items-start content-center q-ma-sm">
+          <q-btn
+            class="q-ma-sm"
+            push
+            color="deep-orange-10"
+            @click="scrollToSection('projects')"
+            label="Explore Projects"
+          />
+          <q-btn
+            class="q-ma-sm"
+            outline
+            color="deep-orange-10 "
+            @click="scrollToSection('tryouts')"
+            label="Try Out!"
+          />
+        </div>
       </div>
     </div>
 
-    <!-- Projekts Section -->
+    <!-- Projects Section -->
 
     <div id="projects" class="fit column wrap justify-center items-center content-center">
       <div style="font-size:50px; color:white;margin:10px;">Projects</div>
       <div class="fit row wrap justify-center items-center content-center">
         <div v-for="(item,index) in cards" :key="index" class="card">
+          <!--
           <a-scene class="aframebox contentView3D q-mb-sm" vr-mode-ui="enabled: false" embedded>
             <a-assets>
               <a-asset-item :id="item.title" :src="item.src"></a-asset-item>
@@ -58,7 +75,6 @@
               </a-entity>
             </a-entity>
 
-            <!--
             <a-entity
               camera
               look-controls="false"
@@ -79,8 +95,9 @@
                 </a-entity>
               </a-entity>
             </a-entity>
-            -->
+            
           </a-scene>
+          -->
 
           <div style="font-size:30px;color:white;max-width:300px;">{{item.title}}</div>
           <div
@@ -139,6 +156,31 @@
             </q-chip>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Try-Outs Section -->
+
+    <div id="tryouts" class="fit column wrap justify-center items-center content-center q-ma-md">
+      <div style="font-size:50px; color:white;margin:10px;">Try these out:</div>
+      <div
+        v-for="(item,index) in tryouts"
+        :key="index"
+        class="fit column wrap justify-center items-center content-center q-ma-md q-pa-md"
+        style="color:white;"
+      >
+        <video class="tryoutVideo" autoplay loop muted>
+          <source :src="item.videopath" type="video/mp4">
+        </video>
+        <div style="font-size:35px; margin-top:10px;">{{item.title}}</div>
+        <div style="font-size:15px; margin-top:10px;">{{item.description}}</div>
+        <q-btn
+          class="q-ma-md"
+          outline
+          color="deep-orange-10"
+          label="Try It Out"
+          @click="redirect(item.link)"
+        />
       </div>
     </div>
 
@@ -204,244 +246,6 @@
     </q-dialog>
   </q-page>
 </template>
-
-<style>
-.main {
-  width: 100%;
-  height: 100vh;
-  background: white;
-}
-
-.maintext {
-  background-color: red;
-  transition: background-color 2s ease-in;
-}
-
-.maintext {
-  margin-top: 25px;
-  font-size: 21px;
-  text-align: center;
-
-  -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
-  -moz-animation: fadein 2s; /* Firefox < 16 */
-  -ms-animation: fadein 2s; /* Internet Explorer */
-  -o-animation: fadein 2s; /* Opera < 12.1 */
-  animation: fadein 2s;
-}
-
-.fadeInThisIs {
-  background-color: black;
-  color: white;
-  animation: fadein 1.4s;
-}
-
-.fadeInAka {
-  background-color: black;
-  color: white;
-  animation: fadein 3.2s;
-}
-
-@keyframes fadein {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.heigth100 {
-  height: 1000px;
-}
-.socials_icon {
-  margin-left: -3px;
-  margin-top: -3px;
-  margin-bottom: -1px;
-  margin-right: 10px;
-  border-style: hidden;
-  border-radius: 10px;
-  max-width: 120px;
-  float: left;
-  width: 100px;
-  height: 100;
-  object-fit: cover;
-}
-
-.projectsPic {
-  border-style: hidden;
-  border-radius: 10px;
-  float: left;
-  width: 300px;
-  height: 300px;
-  object-fit: cover;
-}
-
-.wiredlessTitle {
-  animation-name: reducetime;
-  animation-duration: 4s;
-  background-color: black;
-  color: white;
-  left: 0;
-  font-size: 40px;
-}
-
-.cardSocials {
-  border-radius: 10px;
-  margin: 10px;
-  box-shadow: 2px 2px 15px rgba(0, 10, 12, 0.8);
-  color: white;
-  width: 400px;
-  padding: 10px;
-  transition: 500ms;
-}
-
-.cardSocials:hover {
-  box-shadow: 2px 2px 15px rgba(242, 105, 7, 0.4);
-  transition: 500ms;
-}
-
-.card {
-  border: solid #363636;
-  background: #363636;
-  border-radius: 10px;
-  margin: 10px;
-  box-shadow: 5px 5px 15px rgba(0, 10, 12, 0.4);
-  color: black;
-  padding: 10px;
-  transition: 500ms;
-  height: 550px;
-}
-
-.card:hover {
-  box-shadow: 2px 2px 15px rgba(242, 105, 7, 0.4);
-  transition: 500ms;
-}
-
-.fade-enter {
-  opacity: 0;
-}
-.fade-enter-active {
-  transition: opacity 2s;
-}
-.fade-enter-to {
-  opacity: 1;
-}
-
-.contentViewPicture {
-  width: 300px;
-  height: 300px;
-  background-color: white;
-}
-
-.contentView3D {
-  /*pointer-events: none;*/
-  width: 300px;
-  height: 300px;
-}
-
-.stackLayer {
-  position: relative;
-  margin-top: 60px;
-}
-
-.layer-stack__layer {
-  height: 250px;
-  width: 250px;
-  position: relative;
-  transform: rotateX(45deg) rotateZ(45deg) translateZ(0);
-  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s ease-out;
-  border: solid grey;
-  border-radius: 10px;
-}
-
-.stackdesc__layer1 {
-  color: white;
-  transition: all 0.3s ease-out;
-  top: 150px;
-  position: relative;
-}
-
-.stackdesc__layer2 {
-  color: white;
-  transition: all 0.3s ease-out;
-  position: relative;
-}
-
-.stackdesc__layer3 {
-  color: white;
-  transition: all 0.3s ease-out;
-  position: relative;
-}
-
-.stack__layer1 {
-  background: #363636;
-  z-index: 2;
-}
-
-.stack__layer2 {
-  z-index: 1;
-  transform: rotateX(45deg) rotateZ(45deg) translateZ(300px);
-  background: #363636;
-}
-
-.stack__layer3 {
-  transform: rotateX(45deg) rotateZ(45deg) translateZ(600px);
-  background: #363636;
-}
-.stackImg {
-  margin-top: 35px;
-  margin-left: 35px;
-
-  object-fit: cover;
-  max-width: 175px;
-}
-
-.stackDesc {
-  display: auto;
-}
-
-.chipStyle {
-  max-width: 40vh;
-}
-
-@font-face {
-  font-family: "Montserrat";
-  src: "../assets/fonts/Montserrat-Regular.ttf";
-}
-
-@media only screen and (max-width: 768px) {
-  .card {
-    width: 100%;
-    height: auto;
-  }
-  .wiredlessTitle {
-    font-size: 30px;
-  }
-
-  .cardSocials {
-    width: 100%;
-  }
-
-  .contentViewPicture {
-    width: 100%;
-    height: auto;
-    background-color: white;
-  }
-
-  .contentView3D {
-    width: 100%;
-  }
-
-  .chipStyle {
-    max-width: 100%;
-  }
-
-  .stackDesc {
-    display: none;
-  }
-}
-</style>
 
 <script>
 import { setTimeout, setInterval } from "timers";
@@ -672,10 +476,29 @@ export default {
           imgSrc:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKxpuGMpGHAFyc9ElwwrBGnWwfdGBfaRCyJKxeGOM4aZPP8b54Yv6pUHZMoiv4ILjz8dM&usqp=CAU"
         }
+      ],
+      tryouts: [
+        {
+          title: "Presentation App for MS Teams and Zoom",
+          description:
+            "When you have multiple video inputs and want to display it all on one screen.",
+          link: "https://wiredless.io/webrtc_preview",
+          videopath: "/videos/webrtc_presentration_app.mp4"
+        },
+        {
+          title: "ThingsDash - An app for your Internet of Things apps",
+          description:
+            "A dashboard application for visualizing and managing data from smart devices.",
+          link: "https://iotdev.htlwy.ac.at/website/dashboard/index.html#/",
+          videopath: "/videos/thingsdash_demovideo.mp4"
+        }
       ]
     };
   },
   methods: {
+    redirect(link) {
+      window.location.href = link;
+    },
     redirectInsta() {
       window.location.href = "https://www.instagram.com/wired_less_maker/";
     },
@@ -742,6 +565,10 @@ export default {
     console.log("Browser Height: " + window.innerHeight);
     var v = this;
 
+    this.$root.$on("scrollToTryouts", msg => {
+      v.scrollToSection("tryouts");
+    });
+
     this.$root.$on("scrollToProjekts", msg => {
       v.scrollToSection("projects");
     });
@@ -801,9 +628,259 @@ export default {
   },
   beforeDestroy() {
     // Don't forget to turn the listener off before your component is destroyed
+    this.$root.$off("scrollToTryouts", () => {});
+    this.$root.$off("scrollToStack", () => {});
     this.$root.$off("scrollToSocials", () => {});
     this.$root.$off("scrollToProjekts", () => {});
     this.$root.$off("scrollToHome", () => {});
   }
 };
 </script>
+
+<style>
+.main {
+  width: 100%;
+  height: 100vh;
+  background: white;
+}
+
+.maintext {
+  background-color: red;
+  transition: background-color 2s ease-in;
+}
+
+.tryoutVideo {
+  max-width: 40vw;
+}
+
+.maintext {
+  margin-top: 25px;
+  font-size: 21px;
+  text-align: center;
+
+  -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 2s; /* Firefox < 16 */
+  -ms-animation: fadein 2s; /* Internet Explorer */
+  -o-animation: fadein 2s; /* Opera < 12.1 */
+  animation: fadein 2s;
+}
+
+.fadeInThisIs {
+  background-color: black;
+  color: white;
+  animation: fadein 1.4s;
+}
+
+.fadeInAka {
+  background-color: black;
+  color: white;
+  animation: fadein 3.2s;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.heigth100 {
+  height: 1000px;
+}
+.socials_icon {
+  margin-left: -3px;
+  margin-top: -3px;
+  margin-bottom: -1px;
+  margin-right: 10px;
+  border-style: hidden;
+  border-radius: 10px;
+  max-width: 120px;
+  float: left;
+  width: 100px;
+  height: 100;
+  object-fit: cover;
+}
+
+.projectsPic {
+  border-style: hidden;
+  border-radius: 10px;
+  float: left;
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.wiredlessTitle {
+  animation-name: reducetime;
+  animation-duration: 4s;
+  background-color: black;
+  color: white;
+  left: 0;
+  font-size: 40px;
+}
+
+.cardSocials {
+  border: solid #363636;
+  background: #363636;
+  border-radius: 10px;
+  margin: 10px;
+  box-shadow: 2px 2px 15px rgba(0, 10, 12, 0.8);
+  color: white;
+  width: 400px;
+  padding: 10px;
+  transition: 500ms;
+}
+
+.cardSocials:hover {
+  box-shadow: 2px 2px 15px #bf360c;
+  transition: 500ms;
+}
+
+.card {
+  border: solid #363636;
+  background: #363636;
+  border-radius: 10px;
+  margin: 10px;
+  box-shadow: 5px 5px 15px rgba(0, 10, 12, 0.4);
+  color: black;
+  padding: 10px;
+  transition: 500ms;
+  height: 550px;
+}
+
+.card:hover {
+  box-shadow: 2px 2px 15px #bf360c;
+  transition: 500ms;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  transition: opacity 2s;
+}
+.fade-enter-to {
+  opacity: 1;
+}
+
+.contentViewPicture {
+  width: 300px;
+  height: 300px;
+  background-color: white;
+}
+
+.contentView3D {
+  /*pointer-events: none;*/
+  width: 300px;
+  height: 300px;
+}
+
+.stackLayer {
+  position: relative;
+  margin-top: 60px;
+}
+
+.layer-stack__layer {
+  height: 250px;
+  width: 250px;
+  position: relative;
+  transform: rotateX(45deg) rotateZ(45deg) translateZ(0);
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-out;
+  border: solid grey;
+  border-radius: 10px;
+}
+
+.stackdesc__layer1 {
+  color: white;
+  transition: all 0.3s ease-out;
+  top: 150px;
+  position: relative;
+}
+
+.stackdesc__layer2 {
+  color: white;
+  transition: all 0.3s ease-out;
+  position: relative;
+}
+
+.stackdesc__layer3 {
+  color: white;
+  transition: all 0.3s ease-out;
+  position: relative;
+}
+
+.stack__layer1 {
+  background: #363636;
+  z-index: 2;
+}
+
+.stack__layer2 {
+  z-index: 1;
+  transform: rotateX(45deg) rotateZ(45deg) translateZ(300px);
+  background: #363636;
+}
+
+.stack__layer3 {
+  transform: rotateX(45deg) rotateZ(45deg) translateZ(600px);
+  background: #363636;
+}
+.stackImg {
+  margin-top: 35px;
+  margin-left: 35px;
+
+  object-fit: cover;
+  max-width: 175px;
+}
+
+.stackDesc {
+  display: auto;
+}
+
+.chipStyle {
+  max-width: 40vh;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: "../assets/fonts/Montserrat-Regular.ttf";
+}
+
+@media only screen and (max-width: 768px) {
+  .card {
+    width: 100%;
+    height: auto;
+  }
+  .wiredlessTitle {
+    font-size: 30px;
+  }
+
+  .cardSocials {
+    width: 100%;
+  }
+
+  .contentViewPicture {
+    width: 100%;
+    height: auto;
+    background-color: white;
+  }
+
+  .contentView3D {
+    width: 100%;
+  }
+
+  .chipStyle {
+    max-width: 100%;
+  }
+
+  .stackDesc {
+    display: none;
+  }
+
+  .tryoutVideo {
+    max-width: 92vw;
+  }
+}
+</style>

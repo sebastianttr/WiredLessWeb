@@ -3,11 +3,17 @@
     <div id="myNav" class="overlay">
       <a href="javascript:void(0)" class="closebtn" @click="closeNav()">&times;</a>
       <div class="overlay-content" @click="closeNav()">
+        <div @click="scrollToHome()">
+          <div class="mobileNavs">Home</div>
+        </div>
         <div @click="scrollToProjects()">
           <div class="mobileNavs">Projects</div>
         </div>
         <div @click="scrollToStack()">
           <div class="mobileNavs">My Stack</div>
+        </div>
+        <div @click="scrollToTryouts()">
+          <div class="mobileNavs">Try Outs</div>
         </div>
         <div @click="scrollToSocials()">
           <div class="mobileNavs">Socials</div>
@@ -34,6 +40,9 @@
               <div class="navigation" @click="scrollToStack()">
                 <div style="pointer-events: none;">My Stack</div>
               </div>
+              <div class="navigation" @click="scrollToTryouts()">
+                <div style="pointer-events: none;">Try Outs</div>
+              </div>
               <div class="navigation" @click="scrollToSocials()">
                 <div style="pointer-events: none;">Socials</div>
               </div>
@@ -59,7 +68,7 @@
           <div>
             <div
               style="font-size:30px;"
-              class="q-mb-md"
+              class="q-mb-md q-ml-md q-mr-md"
             >{{!submitDone?"Leave a message!":"Thank You!"}}</div>
           </div>
           <div class="form" :style="styleForm">
@@ -138,6 +147,9 @@ export default {
     };
   },
   methods: {
+    scrollToTryouts() {
+      this.$root.$emit("scrollToTryouts", "scroll");
+    },
     scrollToProjects() {
       this.$root.$emit("scrollToProjekts", "scroll");
     },
@@ -183,7 +195,7 @@ export default {
   font-size: 40px;
   color: white;
   pointer-events: none;
-  margin-bottom: 10px;
+  margin-top: 20px;
 }
 
 .overlay {
@@ -264,7 +276,7 @@ export default {
 }
 
 .navigation:hover {
-  color: green;
+  color: #bf360c;
   transition: 500ms;
   background-color: rgba(0, 0, 0, 0.8);
 }
