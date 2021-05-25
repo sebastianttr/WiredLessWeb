@@ -12,7 +12,7 @@
 
         <div class="wiredlessTitle">@wiredlessmaker</div>
 
-        <div class="fadeInAka" style="font-size:20px;">also known as Sebastian Tatar</div>
+        <div class="fadeInAka" style="font-size:20px;">by Sebastian Tatar</div>
         <div class="row justify-center items-start content-center q-ma-sm">
           <q-btn
             class="q-ma-sm"
@@ -496,6 +496,13 @@ export default {
             "A dashboard application for visualizing and managing data from smart devices.",
           link: "https://iotdev.htlwy.ac.at/website/dashboard/index.html#/",
           videopath: "/videos/thingsdash_demovideo.mp4"
+        },
+        {
+          title: "Room Climate App",
+          description:
+            "Monitor the room climate indoor to make sure the climate is well",
+          link: "https://wiredless.io:8081",
+          videopath: "/videos/room_climate.mp4"
         }
       ]
     };
