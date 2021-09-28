@@ -9,9 +9,6 @@
         <div @click="scrollToProjects()">
           <div class="mobileNavs">Projects</div>
         </div>
-        <div @click="scrollToStack()">
-          <div class="mobileNavs">My Stack</div>
-        </div>
         <div @click="scrollToTryouts()">
           <div class="mobileNavs">Try Outs</div>
         </div>
@@ -26,29 +23,31 @@
 
     <q-header class="transparent header" style="margin-left:-10px;width:110vw;">
       <q-toolbar class="text-black">
-        <div class="header fit row wrap justify-start items-start content-start">
+        <div class=" header fit row wrap justify-start items-start content-start">
           <div style="font-size:20px;" class="q-mt-md q-ml-md">WiredLess</div>
 
           <div style="margin-left:5%">
-            <div class="fit row wrap justify-start items-start content-start">
-              <div class="navigation" @click="scrollToHome()">
-                <div style="pointer-events: none;">Home</div>
+            <div class="fit row wrap justify-start items-start content-start" >
+
+              <div @click="scrollToHome()">
+                <custom-link :text="'Home'"/>
               </div>
-              <div class="navigation" @click="scrollToProjects()">
-                <div style="pointer-events: none;">Projects</div>
+
+              <div @click="scrollToProjects()">
+                <custom-link :text="'Projects'"/>
               </div>
-              <div class="navigation" @click="scrollToStack()">
-                <div style="pointer-events: none;">My Stack</div>
+              
+              <div @click="scrollToTryouts()">
+                <custom-link :text="'Try Outs'"/>
               </div>
-              <div class="navigation" @click="scrollToTryouts()">
-                <div style="pointer-events: none;">Try Outs</div>
+
+              <div @click="scrollToSocials()">
+                <custom-link :text="'Socials'"/>
               </div>
-              <div class="navigation" @click="scrollToSocials()">
-                <div style="pointer-events: none;">Socials</div>
+              <div @click="openContactMeDialog()">
+                <custom-link :text="'Contact me!'"/>
               </div>
-              <div class="navigation" @click="openContactMeDialog()">
-                <div style="pointer-events: none;">Contact me!</div>
-              </div>
+              
             </div>
           </div>
         </div>
@@ -141,10 +140,11 @@
 
 <script>
 import EssentialLink from "components/EssentialLink.vue";
+import CustomLink from "components/CustomLink.vue";
 
 export default {
   name: "MainLayout",
-  components: { EssentialLink },
+  components: { EssentialLink,CustomLink },
   data() {
     return {
       navOpen: false,
@@ -207,6 +207,8 @@ export default {
 </script>
 
 <style lang="scss">
+
+
 .slide-fade-enter-active {
   transition: all 0.5s ease;
   transform: translateX(0px) rotate(0deg);
@@ -291,8 +293,13 @@ export default {
 
 .header {
   background: white;
-  height: 80px;
   opacity: 0.8;
+  transition: 300ms;
+}
+
+.header:hover {
+  opacity: 0.95;
+  transition: 300ms;
 }
 
 .headerMobile {

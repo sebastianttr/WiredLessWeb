@@ -30,6 +30,9 @@
           />
         </div>
       </div>
+       <div>
+
+       </div>
     </div>
 
     <!-- Projects Section -->
@@ -116,57 +119,12 @@
     <!-- Tech Stack Section -->
 
     <div id="techstack" class="fit column wrap justify-center items-center content-center q-ma-md">
-      <div style="font-size:50px; color:white;margin:10px;">My Tech Stack</div>
-      <div class="fit row wrap justify-center items-start content-center">
-        <div class="stackLayer">
-          <div id="layer1" class="layer-stack__layer stack__layer1">
-            <img class="stackImg" src="world-wide-web.png">
-          </div>
-          <div id="layer2" class="layer-stack__layer stack__layer2">
-            <img class="stackImg" src="smartphone.png">
-          </div>
-          <div id="layer3" class="layer-stack__layer stack__layer3">
-            <img class="stackImg" src="computer-micro-chip.png">
-          </div>
-        </div>
-        <div class="stackDesc" style="margin-left:5vw">
-          <div class="text-h4 q-ml-lg stackdesc__layer1" id="desc_layer1">
-            Web
-            <br>
-            <q-chip v-for="(items,index) in stacksWeb" :key="index+1000" size="lg" dense>
-              <q-avatar>
-                <img :src="items.imgSrc">
-              </q-avatar>
-              <div style="font-size:25px;">{{items.name}}</div>
-            </q-chip>
-          </div>
-          <div class="text-h4 q-ml-lg stackdesc__layer2" id="desc_layer2">
-            Mobile
-            <br>
-            <q-chip v-for="(items,index) in stacksMobile" :key="index+1000" size="lg" dense>
-              <q-avatar>
-                <img :src="items.imgSrc">
-              </q-avatar>
-              <div style="font-size:25px;">{{items.name}}</div>
-            </q-chip>
-          </div>
-          <div class="text-h4 q-ml-lg stackdesc__layer2" id="desc_layer3">
-            Embedded
-            <br>
-            <q-chip v-for="(items,index) in stacksEmbedded" :key="index+1000" size="lg" dense>
-              <q-avatar>
-                <img :src="items.imgSrc">
-              </q-avatar>
-              <div style="font-size:25px;">{{items.name}}</div>
-            </q-chip>
-          </div>
-        </div>
-      </div>
+      
     </div>
 
     <!-- Try-Outs Section -->
 
-    <div id="tryouts" class="fit column wrap justify-center items-center content-center q-ma-md">
+    <div id="tryouts" class="fit column wrap justify-center items-center content-center q-ma-md q-mt-xl">
       <div style="font-size:50px; color:white;margin:10px;">Try these out:</div>
       <div
         v-for="(item,index) in tryouts"
@@ -305,31 +263,6 @@ export default {
           }
         },
         {
-          title: "SensorNode",
-          description:
-            "A Prototyping Platform for internet of things applications. ",
-          type: "device",
-          src: "/pictures/SensorNode.PNG",
-          madeUsing: "KiCad | PlatformIO Embedded Framework",
-          options: {
-            scale: {
-              x: 0.35,
-              y: 0.35,
-              z: 0.35
-            },
-            rotation: {
-              yaw: 0,
-              roll: 0,
-              pitch: 0
-            },
-            position: {
-              x: 0,
-              y: 0,
-              z: 0
-            }
-          }
-        },
-        {
           title: "Mecanum Wheel Robot",
           description:
             "A robot with mecanum wheels able to move in any direction.",
@@ -356,12 +289,12 @@ export default {
           }
         },
         {
-          title: "Smart Touch Display with ESP32",
+          title: "Presentr",
           description:
-            "A touch display which shows the time, weather and gives some smart home functionalities.",
-          type: "device",
-          madeUsing: "ESP-IDF | Arduino",
-          src: "/pictures/SmartHomeTFT.PNG",
+            "A web app for sharing live captures from remote resources",
+          type: "app",
+          madeUsing: "Vue | Quasar | Node.js",
+          src: "/pictures/Presentr.PNG",
           options: {
             scale: {
               x: 0.25,
@@ -380,6 +313,33 @@ export default {
             }
           }
         },
+        {
+          title: "Gmail2ECM",
+          description:
+            "A web app for sharing live captures from remote resources -> https://www.gmail2ecm.com/",
+          type: "app",
+          madeUsing: "React | Gatsby | Spring Boot",
+          src: "/pictures/Gmail2ECM.PNG",
+          options: {
+            scale: {
+              x: 0.25,
+              y: 0.25,
+              z: 0.25
+            },
+            rotation: {
+              yaw: 0,
+              roll: 0,
+              pitch: 0
+            },
+            position: {
+              x: 8.5,
+              y: 3.5,
+              z: 0
+            }
+          },
+          onOpenLinkClick:"https://www.gmail2ecm.com/"
+        },
+
 
         {
           title: "Room-Quality Mobile/Web App",
@@ -487,21 +447,21 @@ export default {
           title: "Presentation App for MS Teams and Zoom",
           description:
             "When you have multiple video inputs and want to display it all on one screen.",
-          link: "https://wiredless.io/webrtc_preview",
+          link: "https://presentr.wiredless.io/",
           videopath: "/videos/webrtc_presentration_app.mp4"
         },
         {
           title: "ThingsDash - An app for your Internet of Things uses",
           description:
             "A dashboard application for visualizing and managing data from smart devices.",
-          link: "https://iotdev.htlwy.ac.at/website/dashboard/index.html#/",
+          link: "https://wiredless.io/#/error",
           videopath: "/videos/thingsdash_demovideo.mp4"
         },
         {
           title: "Room Climate App",
           description:
             "Monitor the room climate indoor to make sure the climate is well",
-          link: "https://wiredless.io:8081",
+          link: "https://wiredless.io/#/error",
           videopath: "/videos/room_climate.mp4"
         }
       ]
@@ -516,6 +476,10 @@ export default {
     },
     redirectGithub() {
       window.location.href = "https://github.com/sebastianttr";
+    },
+    handleOnClickOpenLink(link){
+      if(String(link).length != 0)
+        window.location.href = link;
     },
     scrollToSection(section) {
       const yOffset = -60;
@@ -543,6 +507,7 @@ export default {
       ).style.backgroundColor = `rgb(${c},${c},${c})`;
     },
     computeStackPositions(percentage) {
+      /*
       var positionedLayer2 = 300;
       var positionedLayer3 = 600;
 
@@ -568,6 +533,7 @@ export default {
       document.getElementById("desc_layer3").style.opacity = percentage / 100;
       document.getElementById("desc_layer3").style.top = posLayer3 + "px";
       //"translateY(" + posLayer2 + "px)";
+      */
     },
     limitRange(value, min, max) {
       return Math.min(Math.max(parseInt(value), min), max);
