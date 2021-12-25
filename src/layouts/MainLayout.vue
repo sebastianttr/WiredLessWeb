@@ -15,8 +15,8 @@
         <div @click="scrollToSocials()">
           <div class="mobileNavs">Socials</div>
         </div>
-        <div @click="openContactMeDialog()">
-          <div class="mobileNavs">Contact Me</div>
+        <div @click="$router.push('/p/about')">
+          <div class="mobileNavs">About Me</div>
         </div>
       </div>
     </div>
@@ -44,8 +44,8 @@
               <div @click="scrollToSocials()">
                 <custom-link :text="'Socials'"/>
               </div>
-              <div @click="openContactMeDialog()">
-                <custom-link :text="'Contact me!'"/>
+              <div @click="$router.push('/p/aboutme')">
+                <custom-link :text="'About Me'"/>
               </div>
               
             </div>
@@ -60,57 +60,6 @@
         <q-btn flat round dense icon="menu" @click="openFullScreen()"/>
       </q-toolbar>
     </q-header>
-
-    <q-dialog v-model="dialog" position="bottom">
-      <q-card style="width: 500px;" class="bg-grey-10 text-white">
-        <q-card-section class="column items-start no-wrap">
-          <div>
-            <div
-              style="font-size:30px;"
-              class="q-mb-md q-ml-md q-mr-md"
-            >{{!submitDone?"Leave a message!":"Thank You!"}}</div>
-          </div>
-          <div class="form" :style="styleForm">
-            <q-form @submit="onSubmit">
-              <q-input
-                class="q-mb-sm"
-                label-color="black"
-                bg-color="white"
-                filled
-                v-model="name"
-                label="Your name"
-                lazy-rules
-                :rules="[ val => val && val.length > 0 || 'Name cannot be empty!']"
-              />
-              <q-input
-                class="q-mb-sm"
-                label-color="black"
-                bg-color="white"
-                filled
-                v-model="email"
-                label="Your Email"
-                lazy-rules
-                :rules="[ val => val && val.length > 0 || 'E-Mail cannot be empty!']"
-              />
-              <q-input
-                class="q-mb-sm"
-                label-color="black"
-                bg-color="white"
-                filled
-                type="textarea"
-                label="Message"
-                v-model="message"
-              />
-
-              <div class="fit row wrap justify-end q-mt-md">
-                <q-btn label="Submit" type="submit" color="primary"/>
-              </div>
-            </q-form>
-          </div>
-          <q-space/>
-        </q-card-section>
-      </q-card>
-    </q-dialog>
 
     <q-page-container>
       <router-view/>
@@ -129,8 +78,7 @@
 
     <div class="footer fit column wrap justify-center items-center content-center">
       <div class="fit row wrap justify-center items-start content-start">
-        <div class="navigation">About</div>
-        <div class="navigation" @click="openContactMeDialog()">Contact me!</div>
+        <div class="navigation" @click="$router.push('/p/imprint')">Imprint</div>
       </div>
       <div class="q-ma-xs">©Sebastian Tatar | sebi.tatar2@gmail.com</div>
       <div class="q-ma-xs">2021</div>
@@ -189,24 +137,27 @@ export default {
     closeNav() {
       this.showMobileToolBar = true;
       document.getElementById("myNav").style.width = "0%";
-    }
-  },
-  beforeMount() {
-    let v = this;
-    let scrollMemory = 0;
-    let scrollDelta = 0;
-    document.addEventListener("scroll", function(e) {
-      var scrollRelativeToTop =
+    },
+    handleScroll(){
+      let v = this;
+
+      let scrollRelativeToTop =
         document.getElementById("main").getBoundingClientRect().bottom - 60;
 
       //console.log(scrollRelativeToTop);
       v.scrollToTopFabActive = scrollRelativeToTop <= 0;
-    });
+    }
+  },
+  beforeMount() {
+    document.addEventListener("scroll", this.handleScroll);
+  },
+  beforeDestroy(){
+     document.removeEventListener('scroll',this.handleScroll);
   }
 };
 </script>
 
-<style lang="scss">
+<style>
 
 
 .slide-fade-enter-active {
@@ -316,6 +267,7 @@ export default {
   width: 100px;
   height: 60px;
   background-color: rgba(0, 0, 0, 0.5);
+  cursor:pointer;
 }
 
 .navigation:hover {

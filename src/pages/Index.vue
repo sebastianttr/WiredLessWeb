@@ -213,13 +213,13 @@
 <script>
 import { setTimeout, setInterval } from "timers";
 import Vue from "vue";
-import VueAframe from "vue-aframe";
-import "../libs/aframe_orbit.js";
-import "../libs/aframe-supercratf-loader.js";
+//import VueAframe from "vue-aframe";
+//import "../libs/aframe_orbit.js";
+//import "../libs/aframe-supercratf-loader.js";
 import { scroll } from "quasar";
 const { getScrollPosition, setScrollPosition } = scroll;
 
-Vue.use(VueAframe);
+//Vue.use(VueAframe);
 
 Vue.config.ignoredElements = [/a-.*/];
 
@@ -537,38 +537,13 @@ export default {
     },
     limitRange(value, min, max) {
       return Math.min(Math.max(parseInt(value), min), max);
-    }
-  },
-  created() {
-    console.log("Browser Height: " + window.innerHeight);
-    var v = this;
-
-    this.$root.$on("scrollToTryouts", msg => {
-      v.scrollToSection("tryouts");
-    });
-
-    this.$root.$on("scrollToProjekts", msg => {
-      v.scrollToSection("projects");
-    });
-
-    this.$root.$on("scrollToSocials", msg => {
-      v.scrollToSection("socials");
-    });
-
-    this.$root.$on("scrollToHome", msg => {
-      v.scrollToSection("main");
-    });
-
-    this.$root.$on("scrollToStack", msg => {
-      v.scrollToSection("techstack");
-    });
-
-    document.addEventListener("scroll", function(e) {
-      //projects
+    },
+    handleScroll(){
+      var v = this;
 
       var scrollRelativeToTop =
         document.getElementById("main").getBoundingClientRect().bottom - 60;
-      // -60 becuase navigation bar
+      // -60 becausse navigation bar
       scrollRelativeToTop = scrollRelativeToTop >= 0 ? scrollRelativeToTop : 0;
       var min1 = 0;
       var max1 = window.innerHeight;
@@ -597,7 +572,33 @@ export default {
       v.computeLaptopCamDistance(mappedRange_Projects);
       v.compute3DModelsTransformation(mappedRange_Projects);
       v.computeStackPositions(mappedRange_techstack);
+    }
+  },
+  created() {
+    console.log("Browser Height: " + window.innerHeight);
+    var v = this;
+
+    this.$root.$on("scrollToTryouts", msg => {
+      v.scrollToSection("tryouts");
     });
+
+    this.$root.$on("scrollToProjekts", msg => {
+      v.scrollToSection("projects");
+    });
+
+    this.$root.$on("scrollToSocials", msg => {
+      v.scrollToSection("socials");
+    });
+
+    this.$root.$on("scrollToHome", msg => {
+      v.scrollToSection("main");
+    });
+
+    this.$root.$on("scrollToStack", msg => {
+      v.scrollToSection("techstack");
+    });
+
+    document.addEventListener("scroll", this.handleScroll);
   },
   computed: {
     sensorNode() {
@@ -611,6 +612,7 @@ export default {
     this.$root.$off("scrollToSocials", () => {});
     this.$root.$off("scrollToProjekts", () => {});
     this.$root.$off("scrollToHome", () => {});
+    document.removeEventListener('scroll',this.handleScroll);
   }
 };
 </script>

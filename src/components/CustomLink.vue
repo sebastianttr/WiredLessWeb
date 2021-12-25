@@ -1,5 +1,5 @@
 <template>
-    <div class="customLink q-mr-xs q-ml-xs" @click="scrollToHome()">
+    <div class="customLink q-mr-xs q-ml-xs">
         <div class="customLinkText text-weight-bold ">
             <div class="q-pa-sm text-h5">
                 {{this.text}}
