@@ -46,9 +46,7 @@ class ScrollAnimationHandler{
      * 
      */
     getScrollElements() {
-        let scrollContainerStackItem = []; 
         let scrollContainers = document.getElementsByClassName("scrollAppearContainer");
-        console.log("Setting stuff.");
 
 
         for (let scrollContainer of scrollContainers) {
@@ -69,7 +67,6 @@ class ScrollAnimationHandler{
             this.scrollContainers.push(scrollItemStack);
         }
 
-        console.log(this.scrollContainers);
     }
 
     setItemProperties(item,props) {
@@ -113,12 +110,6 @@ class ScrollAnimationHandler{
                 }
             }
         }
-    }
-
-
-
-    attachSimpleAppearAnimation(){
-
     }
 }
 

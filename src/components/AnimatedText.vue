@@ -82,8 +82,8 @@ export default {
                 }    
 
                 // decide randomly if the char gets it character
-                let getsChar = !!Math.round(Math.random());
-                if(getsChar){
+                let getsChar = Math.round(Math.random()*10);
+                if(getsChar > 5){
                     receivedCharsIndex.push(randomIndex);
                     newString = newString.replaceAt(
                         randomIndex,
@@ -103,8 +103,6 @@ export default {
 
                 this.titleProcessed = newString;
             }
-            
-            console.log("Length reached!")
         }
     },
     watch: {

@@ -1,7 +1,3 @@
-<script src="https://aframe.io/releases/1.0.2/aframe.min.js"/>
-<script src="https://unpkg.com/aframe-orbit-controls@1.2.0/dist/aframe-orbit-controls.min.js"/>
-<script src="https://unpkg.com/aframe-supercraft-loader@1.1.3/dist/aframe-supercraft-loader.js"/>
-<script src="https://supereggbert.github.io/aframe-htmlembed-component/dist/build.js"/>
 <template>
   <q-page id="page" class="flex flex-center bg-grey-10">
     <!-- Main Section -->
@@ -36,7 +32,6 @@
     </div>
 
     <!-- Projects Section -->
-
     <div id="projects" class="fit column wrap justify-center items-center content-center">
       <div style="font-size:50px; color:white;margin:10px;">Projects</div>
       <div class="fit row wrap justify-center items-center content-center">
@@ -46,67 +41,6 @@
             :img-style="{'border-radius':'15px','box-shadow': '2px 2px 15px rgba(0, 10, 12, 0.8);'}"
             :ratio="1"
           />
-          <!--
-          <a-scene class="aframebox contentView3D q-mb-sm" vr-mode-ui="enabled: false" embedded>
-            <a-assets>
-              <a-asset-item :id="item.title" :src="item.src"></a-asset-item>
-              <img :id="item.title+'Pic'" :src="item.imgSrc">
-            </a-assets>
-
-            <a-entity
-              camera
-              look-controls
-              orbit-controls="target: 0 1.6 -0.5; minDistance: 0.5; maxDistance: 150; initialPosition: 0 5 15"
-            >
-              <a-entity rotation="-7 0 0">
-                <a-entity
-                  :rotation="item.options.rotation.yaw + ' ' +  item.options.rotation.roll + ' ' +item.options.rotation.pitch"
-                  :scale="item.options.scale.x + ' ' + item.options.scale.y+0.3 + ' ' +item.options.scale.z"
-                  :position="item.options.position.x + ' ' +item.options.position.y + ' '+ item.options.position.z"
-                >
-                  <a-entity :rotation="'0 ' +  modelsRotation + ' 0'">
-                    <a-entity
-                      :obj-model="'obj:#'+item.title+';'"
-                      :position="'-144 ' +modelsPosition+ ' -4'"
-                    >
-                      <a-image
-                        v-if="item.type=='app'"
-                        scale="142.15 172.15 100.15"
-                        position="79 38.5 9"
-                        rotation="0 0 0"
-                        width="0.65"
-                        :src="'#' + item.title+'Pic'"
-                      ></a-image>
-                    </a-entity>
-                  </a-entity>
-                </a-entity>
-              </a-entity>
-            </a-entity>
-
-            <a-entity
-              camera
-              look-controls="false"
-              orbit-controls="target: 0 1.6 -0.5; minDistance: 0.5; maxDistance: 150; initialPosition: 0 5 15"
-            >
-              <a-entity v-if="index==0" id="rig" scale="30 30 30">
-                <a-entity position="0 -0.45 0" rotation="180 0 0">
-                  <a-entity
-                    geometry="primitive: box"
-                    material="color: #545454"
-                    scale="1.5 0.05 1"
-                    color="#545454"
-                  ></a-entity>
-                  <a-entity position="0 0 0.5" rotation="-100 0 0">
-                    <a-box position="0 0 -0.5" scale="1.5 0.05 1.05" color="#545454"></a-box>
-                    <a-image position="0 0.03 -0.5" rotation="-90 0 0" width="1.45" src="#my-image"></a-image>
-                  </a-entity>
-                </a-entity>
-              </a-entity>
-            </a-entity>
-            
-          </a-scene>
-          -->
-
           <div style="font-size:30px;color:white;max-width:300px;margin-top:10px;">{{item.title}}</div>
           <div
             class="q-mt-sm"
@@ -116,14 +50,7 @@
       </div>
     </div>
 
-    <!-- Tech Stack Section -->
-
-    <div id="techstack" class="fit column wrap justify-center items-center content-center q-ma-md">
-      
-    </div>
-
     <!-- Try-Outs Section -->
-
     <div id="tryouts" class="fit column wrap justify-center items-center content-center q-ma-md q-mt-xl">
       <div style="font-size:50px; color:white;margin:10px;">Try these out:</div>
       <div
@@ -153,12 +80,12 @@
       <div style="font-size:50px; color:white;margin:10px;">Socials</div>
       <div class="fit column wrap justify-center items-center content-center">
         <div class="cardSocials" @click="redirectInsta()">
-          <img class="socials_icon" src="../assets/images/instagram_logo.png">
+          <img class="socials_icon" src="../../public/assets/images/instagram_logo.png">
           <div>Instagram</div>
           <div style="font-size:25px">@wired_less_maker</div>
         </div>
         <div class="cardSocials" @click="redirectGithub()">
-          <img class="socials_icon" src="../assets/images/github_logo.png">
+          <img class="socials_icon" src="../../public/assets/images/github_logo.png">
           <div>Github</div>
           <div style="font-size:25px">wired_less_maker</div>
         </div>
@@ -553,25 +480,11 @@ export default {
       );
       mappedRange_Projects = v.limitRange(mappedRange_Projects, 0, 100);
 
-      //tech stack
-
-      var scrollRelativeToTop_TechStack = document
-        .getElementById("techstack")
-        .getBoundingClientRect().top;
-      scrollRelativeToTop_TechStack =
-        scrollRelativeToTop_TechStack >= 0 ? scrollRelativeToTop_TechStack : 0;
-
-      var mappedRange_techstack = Math.round(
-        v.map(scrollRelativeToTop_TechStack, min1, max1, 100, 0) //has to bee 200%, because the other stacks opacity wont be 100% at full bottom scroll
-      );
-      mappedRange_techstack = v.limitRange(mappedRange_techstack, 0, 100);
-
       //computes
 
       v.computeLaptopAngle(mappedRange_Projects);
       v.computeLaptopCamDistance(mappedRange_Projects);
       v.compute3DModelsTransformation(mappedRange_Projects);
-      v.computeStackPositions(mappedRange_techstack);
     }
   },
   created() {
@@ -601,9 +514,6 @@ export default {
     document.addEventListener("scroll", this.handleScroll);
   },
   computed: {
-    sensorNode() {
-      return require("../assets/images/github_logo.png");
-    }
   },
   beforeDestroy() {
     // Don't forget to turn the listener off before your component is destroyed
