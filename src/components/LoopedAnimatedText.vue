@@ -11,15 +11,14 @@ const randomCharacters = [
 
 const maxIter = 5;
 
-
 String.prototype.replaceAt = function(index, replacement) {
     return this.substr(0, index) + replacement + this.substr(index + replacement.length);
 }
 
 export default {
     props:{
-        title: {
-            type: String,
+        titles: {
+            type: Array,
             required: true,
         },
         fontSize: {
@@ -34,22 +33,16 @@ export default {
             type: String,
             required:true
         },
-        reload: {
-            type: Boolean,
-            required:false
-        },
-        onDone: {
-            type: Function,
-            required:false
-        }
+
     },
     data(){
         return {
             titleProcessed: "",
-            paragraphStyle: {}
+            paragraphStyle: {},
+            titlesIndex:0
         }
     },
-    beforeMount(){
+    async beforeMount(){
         // set the styling
         this.paragraphStyle = {
             'font-size':this.$props.fontSize,
@@ -58,7 +51,9 @@ export default {
 
         this.setStartTitle();
 
-        if(this.start)  this.runAnimation();
+        if(this.start){
+            this.runAnimation();
+        } 
     },
     methods:{
         delay(t) {
@@ -74,21 +69,42 @@ export default {
             }
             else return value
         },
-        setStartTitle(){
+        async setStartTitle(){
             // set the default text -> a string of text with the length of the title prop
             this.titleProcessed = "";
-            this.$props.title.split('').forEach((char,i) => {
-                this.titleProcessed += randomCharacters[i%randomCharacters.length];
-            });
+
+            return new Promise((resolve) => {
+                let interval = setInterval(()=> {
+                    this.titleProcessed += randomCharacters[~~(Math.random()*randomCharacters.length)];
+                    if(this.titleProcessed.length >= this.$props.titles[this.titlesIndex].length){
+                        clearInterval(interval)
+                        resolve();
+                    }
+                },30)
+            })
         },
-        async dispatchCallback(){
-            await this.delay(1000);
-            this.onDone();
+        refresh(){
+            let procLen = this.titleProcessed.length
+
+            let interval = setInterval(()=> {
+                this.titleProcessed = this.titleProcessed.substring(0,procLen);
+                
+                if(this.titleProcessed.length === 0){
+                    clearInterval(interval)
+                    this.runAnimation();
+                }
+                else{
+                    procLen--;
+                }
+            },30)
+            
         },
-        async runAnimation(){
-            console.log("Running animation!");
+        async runAnimation(setStart = true){
+            if(setStart)
+                await this.setStartTitle();
+
             let receivedCharsIndex = [];
-            let title = this.$props.title;
+            let title = this.$props.titles[this.titlesIndex];
             let newString = this.titleProcessed;
             
             while(newString !== title){
@@ -121,20 +137,18 @@ export default {
                 this.titleProcessed = newString;
             }
 
-            //this.dispatchCallback();
+            this.titlesIndex = (this.titlesIndex + 1) % this.$props.titles.length;
+            await this.delay(3000);
+
+            this.refresh();
         }
     },
     watch: {
-        start(newVal){
+        async start(newVal){
             if(newVal === true){
-                this.runAnimation();
+                this.runAnimation(false);
             }
         },
-        reload(newVal){
-            if(newVal === true){
-                this.setStartTitle();
-            }
-        }
     }
 }
 </script>

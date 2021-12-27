@@ -6,8 +6,8 @@
 
 <style>
 @font-face {
-  font-family: Montserrat;
-  src: url("../public/assets/fonts/Montserrat-Regular.ttf");
+  font-family: "Montserrat";
+  src: url("../public/assets/fonts/montserrat/Montserrat-Bold.ttf")
 }
 
 * {

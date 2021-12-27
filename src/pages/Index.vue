@@ -1,51 +1,42 @@
 <template>
   <q-page id="page" class="flex flex-center bg-grey-10">
+
     <!-- Main Section -->
-
-    <div id="main" class="main" style="background-color:white;">
+    <div id="main" class="main">
       <div class="fit column wrap justify-center items-start content-center">
-        <div class="fadeInThisIs" style="font-size:20px;">This is</div>
-
-        <div class="wiredlessTitle">@wiredlessmaker</div>
-
-        <div class="fadeInAka" style="font-size:20px;">by Sebastian Tatar</div>
-        <div class="row justify-center items-start content-center q-ma-sm">
-          <q-btn
-            class="q-ma-sm"
-            push
-            color="deep-orange-10"
-            @click="scrollToSection('projects')"
-            label="Explore Projects"
-          />
-          <q-btn
-            class="q-ma-sm"
-            outline
-            color="deep-orange-10 "
-            @click="scrollToSection('tryouts')"
-            label="Try Out!"
-          />
+        <h1 class="myHeader1">Hello!</h1>
+        <h1 class="myHeader2">I am Sebastian Tatar</h1>
+        <div>
+          <span class="text-h4">i'm a</span>
+          <loopedanimatedaext
+            id="animatedText"
+            :titles="loopedAnimtedTextContent" 
+            :fontSize="'45px'" 
+            :color="'#bf360c'"
+            :start="true"
+            />
         </div>
       </div>
-       <div>
-
-       </div>
     </div>
 
     <!-- Projects Section -->
     <div id="projects" class="fit column wrap justify-center items-center content-center">
-      <div style="font-size:50px; color:white;margin:10px;">Projects</div>
-      <div class="fit row wrap justify-center items-center content-center">
-        <div v-for="(item,index) in cards" :key="index" class="card">
-          <q-img
-            :src="item.src"
-            :img-style="{'border-radius':'15px','box-shadow': '2px 2px 15px rgba(0, 10, 12, 0.8);'}"
-            :ratio="1"
-          />
-          <div style="font-size:30px;color:white;max-width:300px;margin-top:10px;">{{item.title}}</div>
-          <div
-            class="q-mt-sm"
-            style="font-size:20px;color:white;max-width:300px;"
-          >{{item.description}}</div>
+      <animatedtext 
+        id="projectsTitle" 
+        class="q-mb-sm"
+        :title="'Projects'" 
+        :fontSize="'50px'" 
+        :color="'#bf360c'"
+        :start="scrollAppearElements[0].state">
+      </animatedtext>
+      <div class="myProjectsBox scrollAppearContainer">
+        <div v-for="(project,index) in projectsList" :key="index*3000" class="myProjectCards scrollAppearItem">
+          <img :src="project.img" alt="Picture of one of my project">
+          <span>
+            <p class="myProjectsCardTitle">{{project.title}}</p>
+            <div class="myProjectCardSeparator"/>
+            <p class="myProjectsCardDesc">{{project.desc}}</p>
+          </span>
         </div>
       </div>
     </div>
@@ -75,7 +66,6 @@
     </div>
 
     <!-- Socials Section -->
-
     <div id="socials" class="fit column wrap justify-center items-center content-center q-ma-md">
       <div style="font-size:50px; color:white;margin:10px;">Socials</div>
       <div class="fit column wrap justify-center items-center content-center">
@@ -139,257 +129,97 @@
 
 <script>
 import { setTimeout, setInterval } from "timers";
+import AnimatedText from "src/components/AnimatedText.vue";
+import LoopedAnimatedText from "src/components/LoopedAnimatedText.vue";
+import ScrollAnimationHandler from "src/handlers/ScrollAnimationHandler.js";
 import Vue from "vue";
-//import VueAframe from "vue-aframe";
-//import "../libs/aframe_orbit.js";
-//import "../libs/aframe-supercratf-loader.js";
 import { scroll } from "quasar";
 const { getScrollPosition, setScrollPosition } = scroll;
 
-//Vue.use(VueAframe);
+const animatedTextContents = [
+  "Web Developer.",
+  "Student.",
+  "Maker.",
+  "Web Designer.",
+  "Developer."
+]
 
 Vue.config.ignoredElements = [/a-.*/];
 
+const projects = [
+  {
+    title:"ThingsDash",
+    desc:"An app for visualizing internet of things devices in various areas",
+    img:"assets/images/pictures_frontpage/ThingsDash.png"
+  },
+  {
+    title:"Mecanum Wheel Robot",
+    desc:"A robot with mecanum wheels able to move in any direction.",
+    img:"assets/images/pictures_frontpage/MecanumWheelRobot.png"
+  },
+  {
+    title:"Presentr",
+    desc:"A web app for sharing live captures from remote resources",
+    img:"assets/images/pictures_frontpage/Presentr.png"
+  },
+  {
+    title:"Gmail2ECM",
+    desc:"A web app for sharing live captures from remote resources",
+    img:"assets/images/pictures_frontpage/Gmail2ECM.png"
+  },
+  {
+    title:"Room-Quality Mobile/Web App",
+    desc:"A roomquality Mobile/Web App for monitoring the Temps & CO2-Levels in classrooms",
+    img:"assets/images/pictures_frontpage/RaumklimaAppPNG.png"
+  },
+  {
+    title:"EXOCars",
+    desc:"An app for visualizing internet of things devices in various areas",
+    img:"assets/images/pictures_frontpage/EXOCars.png"
+  },
+]
+
 export default {
   name: "PageIndex",
+  components:{
+    "animatedtext":AnimatedText,
+    "loopedanimatedaext":LoopedAnimatedText
+  },
   data() {
     return {
       dialog: false,
       maximizedToggle: true,
-      roll: 0,
-      pitch: 0,
-      laptopModelAngels: 0,
-      laptopModelCamDistance: 0,
-      modelsRotation: 0,
-      modelsPosition: 0,
-      cards: [
+      loopedAnimtedTextContent:animatedTextContents,
+      projectsList: projects,
+      intersectionObserver:null,
+      scrollAppearElements:[
         {
-          title: "ThingsDash",
-          description:
-            "An Internet of Things dashboard application with the ability for the user to create its own UI and manages its things. ",
-          type: "app",
-          src: "/pictures/ThingsDash.PNG",
-          imgSrc: "ThingsDash_iphone12promaxgraphite_portrait.PNG",
-          madeUsing: "Vue.js | Quasar",
-          options: {
-            scale: {
-              x: 0.15,
-              y: 0.15,
-              z: 0.15
-            },
-            rotation: {
-              yaw: 0,
-              roll: 0,
-              pitch: 0
-            },
-            position: {
-              x: 10,
-              y: -18,
-              z: -3.5
-            }
-          }
-        },
-        {
-          title: "Mecanum Wheel Robot",
-          description:
-            "A robot with mecanum wheels able to move in any direction.",
-          type: "app",
-          madeUsing: "Native Android Studio | Arduino",
-          src: "/pictures/MecanumWheelRobot.PNG",
-          imgSrc: "MecanumWheelRobot_iphone12promaxgraphite_portrait.PNG",
-          options: {
-            scale: {
-              x: 0.15,
-              y: 0.15,
-              z: 0.15
-            },
-            rotation: {
-              yaw: 0,
-              roll: 0,
-              pitch: 0
-            },
-            position: {
-              x: 10,
-              y: -18,
-              z: -3.5
-            }
-          }
-        },
-        {
-          title: "Presentr",
-          description:
-            "A web app for sharing live captures from remote resources",
-          type: "app",
-          madeUsing: "Vue | Quasar | Node.js",
-          src: "/pictures/Presentr.PNG",
-          options: {
-            scale: {
-              x: 0.25,
-              y: 0.25,
-              z: 0.25
-            },
-            rotation: {
-              yaw: 0,
-              roll: 0,
-              pitch: 0
-            },
-            position: {
-              x: 8.5,
-              y: 3.5,
-              z: 0
-            }
-          }
-        },
-        {
-          title: "Gmail2ECM",
-          description:
-            "A web app for sharing live captures from remote resources -> https://www.gmail2ecm.com/",
-          type: "app",
-          madeUsing: "React | Gatsby | Spring Boot",
-          src: "/pictures/Gmail2ECM.PNG",
-          options: {
-            scale: {
-              x: 0.25,
-              y: 0.25,
-              z: 0.25
-            },
-            rotation: {
-              yaw: 0,
-              roll: 0,
-              pitch: 0
-            },
-            position: {
-              x: 8.5,
-              y: 3.5,
-              z: 0
-            }
-          },
-          onOpenLinkClick:"https://www.gmail2ecm.com/"
-        },
-
-
-        {
-          title: "Room-Quality Mobile/Web App",
-          description:
-            "A roomquality Mobile/Web App for monitoring the Temps & CO2-Levels in classrooms",
-          type: "app",
-          src: "/pictures/RaumklimaAppPNG.PNG",
-          imgSrc: "RaumklimaApp_iphone12promaxgraphite_portrait.PNG",
-          options: {
-            scale: {
-              x: 0.15,
-              y: 0.15,
-              z: 0.15
-            },
-            rotation: {
-              yaw: 0,
-              roll: 0,
-              pitch: 0
-            },
-            position: {
-              x: 10,
-              y: -18,
-              z: -3.5
-            }
-          }
-        }
-        /*
-        {
-          title: "LED Matrix ",
-          description: "A LED Matrix Display with WiFi-functionalities",
-          type: "device",
-          src: "",
-          madeUsing: "ESP-IDF | Arduino"
-        },
-        {
-          title: "Blinds Controls",
-          description:
-            "A Device which is connected to the internet to turn on/off the blinds in a house.",
-          type: "device",
-          src: "",
-          madeUsing: "ESP-IDF | Arduino"
-        }
-        */
-      ],
-      stacksWeb: [
-        {
-          name: "Vue.js",
-          imgSrc:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1200px-Vue.js_Logo_2.svg.png"
-        },
-        {
-          name: "Quasar",
-          imgSrc: "favicon.ico"
-        },
-        {
-          name: "Blazor",
-          imgSrc:
-            "https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2019/04/BrandBlazor_nohalo_1000x.png"
-        },
-        {
-          name: "ASP.NET",
-          imgSrc:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5jBXxdLLo5W9GdGSPHdb0aY07TKpVddtCCnLk68mZ1OM_CiPzzlXxoZpxyZylx8k8R8E&usqp=CAU"
-        },
-        {
-          name: "Node.js",
-          imgSrc:
-            "https://icons-for-free.com/iconfiles/png/512/install+javascript+js+node+npm+tools+icon-1320165731324625592.png"
+          id:"projectsTitle",
+          state: false
         }
       ],
-      stacksMobile: [
-        {
-          name: "Flutter",
-          imgSrc: "https://img.icons8.com/color/452/flutter.png"
-        },
-        {
-          name: "Vue.js",
-          imgSrc:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1200px-Vue.js_Logo_2.svg.png"
-        },
-        {
-          name: "Quasar",
-          imgSrc: "favicon.ico"
-        }
-      ],
-      stacksEmbedded: [
-        {
-          name: "Arduino",
-          imgSrc:
-            "https://w7.pngwing.com/pngs/676/338/png-transparent-arduino-computer-software-library-electronics-computer-electronics-baby-computer-thumbnail.png"
-        },
-        {
-          name: "ESP-IDF",
-          imgSrc:
-            "https://media.glassdoor.com/sqll/1451712/espressif-squarelogo-1584093022410.png"
-        },
-        {
-          name: "MDK-ARM",
-          imgSrc:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKxpuGMpGHAFyc9ElwwrBGnWwfdGBfaRCyJKxeGOM4aZPP8b54Yv6pUHZMoiv4ILjz8dM&usqp=CAU"
-        }
-      ],
+      scrollAppearHandler:null,
       tryouts: [
         {
           title: "Presentation App for MS Teams and Zoom",
           description:
             "When you have multiple video inputs and want to display it all on one screen.",
           link: "https://presentr.wiredless.io/",
-          videopath: "/videos/webrtc_presentration_app.mp4"
+          videopath: "assets/videos/webrtc_presentration_app.mp4"
         },
         {
           title: "ThingsDash - An app for your Internet of Things uses",
           description:
             "A dashboard application for visualizing and managing data from smart devices.",
           link: "https://wiredless.io/#/error",
-          videopath: "/videos/thingsdash_demovideo.mp4"
+          videopath: "assets/videos/thingsdash_demovideo.mp4"
         },
         {
           title: "Room Climate App",
           description:
             "Monitor the room climate indoor to make sure the climate is well",
           link: "https://wiredless.io/#/error",
-          videopath: "/videos/room_climate.mp4"
+          videopath: "assets/videos/room_climate.mp4"
         }
       ]
     };
@@ -433,35 +263,6 @@ export default {
         "main"
       ).style.backgroundColor = `rgb(${c},${c},${c})`;
     },
-    computeStackPositions(percentage) {
-      /*
-      var positionedLayer2 = 300;
-      var positionedLayer3 = 600;
-
-      var posLayer2 = this.map(percentage, 0, 100, positionedLayer2, 100);
-      var posLayer3 = this.map(percentage, 0, 100, positionedLayer3, 200);
-
-      document.getElementById("layer2").style.opacity = percentage / 100;
-      document.getElementById("layer2").style.transform =
-        "rotateX(45deg) rotateZ(45deg) translateZ(" + posLayer2 + "px)";
-
-      document.getElementById("layer3").style.opacity = percentage / 100;
-      document.getElementById("layer3").style.transform =
-        "rotateX(45deg) rotateZ(45deg) translateZ(" + posLayer3 + "px)";
-
-      //repurpose
-      posLayer2 = this.map(percentage, 0, 100, 100, 250);
-      posLayer3 = this.map(percentage, 0, 100, 100, 350);
-
-      document.getElementById("desc_layer2").style.opacity = percentage / 100;
-      document.getElementById("desc_layer2").style.top = posLayer2 + "px";
-      //"translateY(" + posLayer2 + "px)";
-
-      document.getElementById("desc_layer3").style.opacity = percentage / 100;
-      document.getElementById("desc_layer3").style.top = posLayer3 + "px";
-      //"translateY(" + posLayer2 + "px)";
-      */
-    },
     limitRange(value, min, max) {
       return Math.min(Math.max(parseInt(value), min), max);
     },
@@ -481,14 +282,26 @@ export default {
       mappedRange_Projects = v.limitRange(mappedRange_Projects, 0, 100);
 
       //computes
-
       v.computeLaptopAngle(mappedRange_Projects);
       v.computeLaptopCamDistance(mappedRange_Projects);
       v.compute3DModelsTransformation(mappedRange_Projects);
-    }
+    },
+    delay(t) {
+      return new Promise(resolve => {
+          setTimeout(() => resolve(), t);
+      })
+    },
+
+    getDOMel(id){
+      return document.getElementById(id);
+    },
+    attachAllElements(){
+      this.scrollAppearElements.forEach(item => {
+        this.intersectionObserver.observe(this.getDOMel(item.id));
+      });
+    },
   },
   created() {
-    console.log("Browser Height: " + window.innerHeight);
     var v = this;
 
     this.$root.$on("scrollToTryouts", msg => {
@@ -513,8 +326,6 @@ export default {
 
     document.addEventListener("scroll", this.handleScroll);
   },
-  computed: {
-  },
   beforeDestroy() {
     // Don't forget to turn the listener off before your component is destroyed
     this.$root.$off("scrollToTryouts", () => {});
@@ -523,11 +334,43 @@ export default {
     this.$root.$off("scrollToProjekts", () => {});
     this.$root.$off("scrollToHome", () => {});
     document.removeEventListener('scroll',this.handleScroll);
+  },
+  mounted(){
+    this.intersectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          this.scrollAppearElements.filter(item => entry.target.id == item.id)[0].state = true;
+        }
+      });
+    });
+
+    this.scrollAppearElements.forEach(item => {
+      this.intersectionObserver.observe(this.getDOMel(item.id));
+    });
+
+    this.scrollAppearHandler = new ScrollAnimationHandler(0,40);
   }
 };
 </script>
 
 <style>
+
+@font-face {
+  font-family: "MontserratSemiBold";
+  src: url("../../public/assets/fonts/montserrat/Montserrat-SemiBold.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../../public/assets/fonts/montserrat/Montserrat-Medium.ttf");
+}
+
+@font-face {
+  font-family: "MontserratBold";
+  src: url("../../public/assets/fonts/montserrat/Montserrat-Bold.ttf");
+}
+
 .main {
   width: 100%;
   height: 100vh;
@@ -553,6 +396,24 @@ export default {
   -ms-animation: fadein 2s; /* Internet Explorer */
   -o-animation: fadein 2s; /* Opera < 12.1 */
   animation: fadein 2s;
+}
+
+.myHeader1{
+  font-size: 5em;
+  margin:0;
+  font-family: "MontserratSemiBold";
+  color:#bf360c;
+}
+
+.myHeader2{
+  margin:0;
+  font-family: "MontserratBold";
+}
+
+#animatedText{
+  display: inline;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
 }
 
 .fadeInThisIs {
@@ -609,6 +470,123 @@ export default {
   color: white;
   left: 0;
   font-size: 40px;
+}
+
+#projects{
+  overflow:hidden;
+}
+
+#projectsTitle{
+  opacity: 0;
+  transition: opacity 1.5s cubic-bezier(.03,1.12,.82,.99) 0.5s;
+  margin:10px;
+  font-family: "MontserratBold";
+}
+
+
+.myProjectsBox{
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: row wrap;
+  overflow: hidden;
+}
+
+.myProjectCards{
+  position: relative;
+
+  height: 300px;
+  flex-grow: 1;
+  padding: 0;
+
+  min-width: 500px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column nowrap;
+
+  overflow:hidden;
+  cursor:pointer;
+}
+
+.myProjectCards:hover span{
+  opacity: 1;
+  background-color: rgba(0, 10, 12, 0.6);
+  padding-top:0px;
+}
+
+.myProjectCards:hover img{
+  filter: blur(2px);
+}
+
+.myProjectCards:hover span .myProjectCardSeparator{
+  width: 40%; 
+}
+
+.myProjectCards img{
+  position: absolute;
+  top:0;
+  object-fit: fill;
+  width: 100%;
+  z-index: 0;
+  filter: none;
+  transition: filter 0.3s ease-in-out;
+}
+
+.myProjectCards span{
+  position: absolute;
+  width:100%;
+  height: 100%;
+  padding-top:50px;
+
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow:column nowrap;
+
+  color:white;
+
+  opacity: 0;
+  background-color: transparent;
+  transition: 
+    opacity 0.3s ease-in-out,
+    background-color 0.2s ease-in-out,
+    padding-top 0.8s cubic-bezier(.03,1.12,.82,.99);
+
+}
+
+.myProjectsCardTitle{
+  font-family: "MontserratBold";
+  margin:0;
+  padding: 0;
+  bottom: 0;
+  font-size: 2.8em;
+  width:80%;
+  text-align: center;
+  overflow-wrap: break-word;
+  overflow: hidden;
+}
+
+.myProjectCardSeparator{
+  background-color:#bf360c;
+  height: 2px;
+  width: 0;
+  transition: width 0.5s cubic-bezier(.03,1.12,.82,.99) 0.3s;
+  border-radius: 100px;
+}
+
+.myProjectsCardDesc{
+  font-family: "MontserratSemiBold";
+  bottom: 0;
+  margin:0;
+  padding: 0;
+  font-size: 1.6em;
+  width:80%;
+  text-align: center;
+  overflow-wrap: break-word;
+  overflow: hidden;
 }
 
 .cardSocials {
@@ -732,6 +710,8 @@ export default {
 .chipStyle {
   max-width: 40vh;
 }
+
+
 
 @font-face {
   font-family: "Montserrat";
