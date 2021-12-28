@@ -1,0 +1,132 @@
+cards: [
+        {
+          title: "ThingsDash",
+          description:
+            "An Internet of Things dashboard application with the ability for the user to create its own UI and manages its things. ",
+          type: "app",
+          src: "/pictures/ThingsDash.PNG",
+          imgSrc: "ThingsDash_iphone12promaxgraphite_portrait.PNG",
+          madeUsing: "Vue.js | Quasar",
+          options: {
+            scale: {
+              x: 0.15,
+              y: 0.15,
+              z: 0.15
+            },
+            rotation: {
+              yaw: 0,
+              roll: 0,
+              pitch: 0
+            },
+            position: {
+              x: 10,
+              y: -18,
+              z: -3.5
+            }
+          }
+        },
+        {
+          title: "Mecanum Wheel Robot",
+          description:
+            "A robot with mecanum wheels able to move in any direction.",
+          type: "app",
+          madeUsing: "Native Android Studio | Arduino",
+          src: "/pictures/MecanumWheelRobot.PNG",
+          imgSrc: "MecanumWheelRobot_iphone12promaxgraphite_portrait.PNG",
+          options: {
+            scale: {
+              x: 0.15,
+              y: 0.15,
+              z: 0.15
+            },
+            rotation: {
+              yaw: 0,
+              roll: 0,
+              pitch: 0
+            },
+            position: {
+              x: 10,
+              y: -18,
+              z: -3.5
+            }
+          }
+        },
+        {
+          title: "Presentr",
+          description:
+            "A web app for sharing live captures from remote resources",
+          type: "app",
+          madeUsing: "Vue | Quasar | Node.js",
+          src: "/pictures/Presentr.PNG",
+          options: {
+            scale: {
+              x: 0.25,
+              y: 0.25,
+              z: 0.25
+            },
+            rotation: {
+              yaw: 0,
+              roll: 0,
+              pitch: 0
+            },
+            position: {
+              x: 8.5,
+              y: 3.5,
+              z: 0
+            }
+          }
+        },
+        {
+          title: "Gmail2ECM",
+          description:
+            "A web app for sharing live captures from remote resources -> https://www.gmail2ecm.com/",
+          type: "app",
+          madeUsing: "React | Gatsby | Spring Boot",
+          src: "/pictures/Gmail2ECM.PNG",
+          options: {
+            scale: {
+              x: 0.25,
+              y: 0.25,
+              z: 0.25
+            },
+            rotation: {
+              yaw: 0,
+              roll: 0,
+              pitch: 0
+            },
+            position: {
+              x: 8.5,
+              y: 3.5,
+              z: 0
+            }
+          },
+          onOpenLinkClick:"https://www.gmail2ecm.com/"
+        },
+
+
+        {
+          title: "Room-Quality Mobile/Web App",
+          description:
+            "A roomquality Mobile/Web App for monitoring the Temps & CO2-Levels in classrooms",
+          type: "app",
+          src: "/pictures/RaumklimaAppPNG.PNG",
+          imgSrc: "RaumklimaApp_iphone12promaxgraphite_portrait.PNG",
+          options: {
+            scale: {
+              x: 0.15,
+              y: 0.15,
+              z: 0.15
+            },
+            rotation: {
+              yaw: 0,
+              roll: 0,
+              pitch: 0
+            },
+            position: {
+              x: 10,
+              y: -18,
+              z: -3.5
+            }
+          }
+        }
+      ],

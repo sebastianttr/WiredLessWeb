@@ -24,7 +24,7 @@
       <animatedtext 
         id="projectsTitle" 
         class="q-mb-sm"
-        :title="'Projects'" 
+        :title="'My work.'" 
         :fontSize="'50px'" 
         :color="'#bf360c'"
         :start="scrollAppearElements[0].state">
@@ -43,26 +43,36 @@
 
     <!-- Try-Outs Section -->
     <div id="tryouts" class="fit column wrap justify-center items-center content-center q-ma-md q-mt-xl">
-      <div style="font-size:50px; color:white;margin:10px;">Try these out:</div>
-      <div
-        v-for="(item,index) in tryouts"
-        :key="index"
-        class="fit column wrap justify-center items-center content-center q-ma-md q-pa-md"
-        style="color:white;"
-      >
-        <video class="tryoutVideo" autoplay loop muted>
-          <source :src="item.videopath" type="video/mp4">
-        </video>
-        <div style="font-size:35px; margin-top:10px;">{{item.title}}</div>
-        <div style="font-size:15px; margin-top:10px;">{{item.description}}</div>
-        <q-btn
-          class="q-ma-md"
-          outline
-          color="deep-orange-10"
-          label="Try It Out"
-          @click="redirect(item.link)"
-        />
+       <animatedtext 
+        id="tryOutsTitle" 
+        class="q-mb-sm"
+        :title="'Tryouts.'" 
+        :fontSize="'50px'" 
+        :color="'#bf360c'"
+        :start="scrollAppearElements[1].state">
+      </animatedtext>
+      <div class="scrollAppearContainer">
+        <div
+          v-for="(item,index) in tryouts"
+          :key="index"
+          class="fit column wrap justify-center items-center content-center q-ma-md q-pa-md scrollAppearItem"
+          style="color:white;"
+        >
+          <video class="tryoutVideo" autoplay loop muted>
+            <source :src="item.videopath" type="video/mp4">
+          </video>
+          <div style="font-size:35px; margin-top:10px;">{{item.title}}</div>
+          <div style="font-size:15px; margin-top:10px;">{{item.description}}</div>
+          <q-btn
+            class="q-ma-md"
+            outline
+            color="deep-orange-10"
+            label="Try It Out"
+            @click="redirect(item.link)"
+          />
+        </div>
       </div>
+      
     </div>
 
     <!-- Socials Section -->
@@ -174,7 +184,7 @@ const projects = [
   },
   {
     title:"EXOCars",
-    desc:"An app for visualizing internet of things devices in various areas",
+    desc:"A static website for buying/selling special kinds of cars",
     img:"assets/images/pictures_frontpage/EXOCars.png"
   },
 ]
@@ -195,6 +205,10 @@ export default {
       scrollAppearElements:[
         {
           id:"projectsTitle",
+          state: false
+        },
+        {
+          id:"tryOutsTitle",
           state: false
         }
       ],

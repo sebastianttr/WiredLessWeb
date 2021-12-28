@@ -1,10 +1,12 @@
 <template>
-    <div class="customLink q-mr-xs q-ml-xs">
-        <div class="customLinkText text-weight-bold ">
-            <div class="q-pa-sm text-h5">
+    <div class="customLink">
+        <div class="customLinkWrapper">
+            <div class="customLinkText">
                 {{this.text}}
             </div>
-            <div class="customLinkBackground"></div>
+            <div class="customLinkLineWrapper">
+                <div class="customLinkExpandLine"></div>
+            </div>
         </div>
     </div>
 </template>
@@ -17,31 +19,61 @@ export default {
 
 <style>
 
+@font-face {
+  font-family: "MontserratLight";
+  src: url("../../public/assets/fonts/montserrat/Montserrat-Regular.ttf");
+}
+
+
 .customLink {
     color: black;
-    height: 53px;
+    height: 50px;
     cursor: pointer;
 }
 
-.customLinkText {
+.customLinkWrapper{
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px 5px 2px 5px;
+    border-radius: 10px;
+    overflow:hidden;
+    background: transparent;
+    transition: background 0.4s cubic-bezier(.03,1.12,.82,.99);
 }
 
-.customLinkBackground {
+.customLinkText {
+    font-family: "MontserratLight";
+    font-size: 25px;
+}
+
+.customLinkLineWrapper {
     position: absolute;
-    height: 10%;
-    width: 110%;
-    bottom: -5px;
-    left: -5%;
-    background-color: #bf360c;
+    height: 5%;
+    width: 100%;
+    bottom: 0;
     transition: 0.3s;
     z-index: -1;
+    display:flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.customLink:hover .customLinkBackground {
-    height: 120%;
-    box-shadow: 0px 0px 10px 7px rgba(0, 0, 0, 0.15);
-    opacity: 1;
+.customLinkExpandLine{
+    background-color: #bf360c;
+    border-radius:2px;
+    height: 100%;
+    width: 0%;
+    transition: width 0.4s cubic-bezier(.03,1.12,.82,.99);
+}
+
+.customLink:hover .customLinkExpandLine {
+    width: 100%;
+}
+
+.customLink:hover .customLinkWrapper{
+    background: rgba(0, 0, 0, 0.1);
 }
 
 

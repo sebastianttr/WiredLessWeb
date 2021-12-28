@@ -1,5 +1,41 @@
 <template>
   <q-layout view="lHh Lpr lFf" class="scroll">
+    
+    <nav>
+      <div class="header">
+        <div class="headerWrapper">
+          <h4 class="">WiredLess</h4>
+          <div class="headerLinks">
+            <div @click="scrollToHome()">
+              <custom-link :text="'Home'"/>
+            </div>
+
+            <div @click="scrollToProjects()">
+              <custom-link :text="'Projects'"/>
+            </div>
+            
+            <div @click="scrollToTryouts()">
+              <custom-link :text="'Try Outs'"/>
+            </div>
+
+            <div @click="scrollToSocials()">
+              <custom-link :text="'Socials'"/>
+            </div>
+            <div @click="$router.push('/p/aboutme')">
+              <custom-link :text="'About Me'"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <q-header reveal :class="!showMobileToolBar?'transparent':'bg-white'  + ' headerMobile'">
+      <q-toolbar class="text-black">
+        <q-toolbar-title>WiredLess</q-toolbar-title>
+        <q-btn flat round dense icon="menu" @click="openFullScreen()"/>
+      </q-toolbar>
+    </q-header>
+
     <div id="myNav" class="overlay">
       <a href="javascript:void(0)" class="closebtn" @click="closeNav()">&times;</a>
       <div class="overlay-content" @click="closeNav()">
@@ -20,46 +56,6 @@
         </div>
       </div>
     </div>
-
-    <q-header class="transparent header" style="margin-left:-10px;width:110vw;">
-      <q-toolbar class="text-black">
-        <div class=" header fit row wrap justify-start items-start content-start">
-          <div style="font-size:20px;" class="q-mt-md q-ml-md">WiredLess</div>
-
-          <div style="margin-left:5%">
-            <div class="fit row wrap justify-start items-start content-start" >
-
-              <div @click="scrollToHome()">
-                <custom-link :text="'Home'"/>
-              </div>
-
-              <div @click="scrollToProjects()">
-                <custom-link :text="'Projects'"/>
-              </div>
-              
-              <div @click="scrollToTryouts()">
-                <custom-link :text="'Try Outs'"/>
-              </div>
-
-              <div @click="scrollToSocials()">
-                <custom-link :text="'Socials'"/>
-              </div>
-              <div @click="$router.push('/p/aboutme')">
-                <custom-link :text="'About Me'"/>
-              </div>
-              
-            </div>
-          </div>
-        </div>
-      </q-toolbar>
-    </q-header>
-
-    <q-header reveal :class="!showMobileToolBar?'transparent':'bg-white'  + ' headerMobile'">
-      <q-toolbar class="text-black">
-        <q-toolbar-title>WiredLess</q-toolbar-title>
-        <q-btn flat round dense icon="menu" @click="openFullScreen()"/>
-      </q-toolbar>
-    </q-header>
 
     <q-page-container>
       <router-view/>
@@ -144,6 +140,12 @@ export default {
       let scrollRelativeToTop =
         document.getElementById("main").getBoundingClientRect().bottom - 60;
 
+      // Navbar things
+      let scrollPosReached = window.scrollY >= 60;
+      document.getElementsByTagName("nav")[0].style.height = scrollPosReached?"60px":"100px";
+      document.getElementsByTagName("nav")[0].style.boxShadow = scrollPosReached?"0px 0px 28px -1px #000000":"none";
+      
+
       //console.log(scrollRelativeToTop);
       v.scrollToTopFabActive = scrollRelativeToTop <= 0;
     }
@@ -152,13 +154,27 @@ export default {
     document.addEventListener("scroll", this.handleScroll);
   },
   beforeDestroy(){
-     document.removeEventListener('scroll',this.handleScroll);
-  }
+    document.removeEventListener('scroll',this.handleScroll);
+  },
 };
 </script>
 
 <style>
 
+@font-face {
+  font-family: "MontserratSemiBold";
+  src: url("../../public/assets/fonts/montserrat/Montserrat-SemiBold.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../../public/assets/fonts/montserrat/Montserrat-Medium.ttf");
+}
+
+@font-face {
+  font-family: "MontserratBold";
+  src: url("../../public/assets/fonts/montserrat/Montserrat-Bold.ttf");
+}
 
 .slide-fade-enter-active {
   transition: all 0.5s ease;
@@ -242,10 +258,45 @@ export default {
   color: white;
 }
 
-.header {
+nav{
   background: white;
-  opacity: 0.8;
+  z-index: 100;
+  position: fixed;
+  height: 100px;
+  box-shadow: none;
+  transition: 
+    height 0.4s cubic-bezier(.03,1.12,.82,.99),
+    box-shadow 0.4s cubic-bezier(.03,1.12,.82,.99),;
+}
+
+.header {
+  opacity: 1;
   transition: 300ms;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: row nowrap;
+  height: 100%;
+}
+
+.headerWrapper{
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-flow: row nowrap;
+}
+
+.header h4{
+  margin:0;
+  padding:0;
+}
+
+.headerLinks{
+  display:flex;
+  gap:15px;
+  margin-top:1%;
 }
 
 .header:hover {

@@ -85,7 +85,7 @@ class ScrollAnimationHandler{
     }
 
     setScrollListener(){
-        window.onscroll = () => {
+        window.addEventListener("scroll",() => {
             for(let scrollContainer of this.scrollContainers){
                 for(let scrollItem of scrollContainer){
                     if(scrollItem.getBoundingClientRect().y - window.innerHeight <= 0){
@@ -109,7 +109,7 @@ class ScrollAnimationHandler{
                     }   
                 }
             }
-        }
+        })
     }
 }
 
