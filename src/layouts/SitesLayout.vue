@@ -1,83 +1,44 @@
 <template>
-  <q-layout class="scroll">
-      
-    <q-header class="transparent header" >
-      <q-toolbar class="text-black">
-        <div class=" header fit row wrap justify-start items-start content-start">
-          <div 
-            style="font-size:20px;cursor:pointer;" 
-            @click="$router.push('/')" 
-            class="q-mt-md q-ml-sm">
-            WiredLess
-        </div>
+  <q-layout view="lHh Lpr lFf" class="scroll">
 
-          <div style="margin-left:5%">
-            <div class="fit row wrap justify-start items-start content-start" >
-
-              <div @click="$router.push('/')">
-                <custom-link :text="'Home'"/>
-              </div>
-
-              <div @click="$router.push('/p/aboutme')">
-                <custom-link :text="'About Me'"/>
-              </div>
-            </div>
-          </div>
-        </div>
-      </q-toolbar>
-    </q-header>
- 
-    
-    
-   
-    <div id="myNav" class="overlay">
-      <a href="javascript:void(0)" class="closebtn" @click="closeNav()">&times;</a>
-      <div class="overlay-content" @click="closeNav()">
-        <div @click="scrollToHome()">
-          <div class="mobileNavs">Home</div>
-        </div>
-        <div @click="scrollToProjects()">
-          <div class="mobileNavs">Projects</div>
-        </div>
-        <div @click="scrollToTryouts()">
-          <div class="mobileNavs">Try Outs</div>
-        </div>
-        <div @click="scrollToSocials()">
-          <div class="mobileNavs">Socials</div>
-        </div>
-        <div @click="$router.push('/p/about')">
-          <div class="mobileNavs">About Me</div>
-        </div>
-      </div>
-    </div>
-    
+    <navbar :navLinks="navBarLinks" :disappearThreshold="disappearThreshold"></navbar>
 
     <q-page-container>
       <router-view/>
     </q-page-container>
 
-    <q-footer>
-        <div class="footer fit column wrap justify-center items-center content-center">
-            <div class="fit row wrap justify-center items-start content-start">
-                <div class="navigation" @click="$router.push('/p/imprint')">Imprint</div>
-            </div>
-            <div class="q-ma-xs">©Sebastian Tatar | sebi.tatar2@gmail.com</div>
-        <div class="q-ma-xs">2021</div>
+    <div class="footer fit column wrap justify-center items-center content-center">
+      <div class="fit row wrap justify-center items-start content-start">
+        <div class="navigation" @click="$router.push('/p/imprint')">Imprint</div>
+      </div>
+      <div class="q-ma-xs">©Sebastian Tatar | sebi.tatar2@gmail.com</div>
+      <div class="q-ma-xs">2021</div>
     </div>
-
-    </q-footer>
-
   </q-layout>
 </template>
 
 <script>
 import CustomLink from "components/CustomLink.vue";
+import NavBar from "src/components/NavBar.vue";
+
+const navBarLinks = [
+  {
+    title:"Home",
+    action:"navigateTo:/"
+  },
+  {
+    title:"Imprint",
+    action:"navigateTo:/p/imprint"
+  },
+]
 
 export default {
-    components: { CustomLink },
+    components: { CustomLink,"navbar":NavBar },
     data(){
         return {
-            showMobileToolBar:false
+            showMobileToolBar:false,
+            navBarLinks:navBarLinks,
+            disappearThreshold: window.innerHeight/4
         }
     },
     methods:{

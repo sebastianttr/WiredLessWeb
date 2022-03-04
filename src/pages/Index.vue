@@ -10,8 +10,8 @@
           <span class="text-h4">i'm a</span>
           <loopedanimatedaext
             id="animatedText"
-            :titles="loopedAnimtedTextContent" 
-            :fontSize="'45px'" 
+            :titles="loopedAnimtedTextContent"
+            :fontSize="'45px'"
             :color="'#bf360c'"
             :start="true"
             />
@@ -21,11 +21,11 @@
 
     <!-- Projects Section -->
     <div id="projects" class="fit column wrap justify-center items-center content-center">
-      <animatedtext 
-        id="projectsTitle" 
+      <animatedtext
+        id="projectsTitle"
         class="q-mb-sm"
-        :title="'My work.'" 
-        :fontSize="'50px'" 
+        :title="'My work.'"
+        :fontSize="'50px'"
         :color="'#bf360c'"
         :start="scrollAppearElements[0].state">
       </animatedtext>
@@ -43,11 +43,11 @@
 
     <!-- Try-Outs Section -->
     <div id="tryouts" class="fit column wrap justify-center items-center content-center q-ma-md q-mt-xl">
-       <animatedtext 
-        id="tryOutsTitle" 
+       <animatedtext
+        id="tryOutsTitle"
         class="q-mb-sm"
-        :title="'Tryouts.'" 
-        :fontSize="'50px'" 
+        :title="'Tryouts.'"
+        :fontSize="'50px'"
         :color="'#bf360c'"
         :start="scrollAppearElements[1].state">
       </animatedtext>
@@ -72,7 +72,7 @@
           />
         </div>
       </div>
-      
+
     </div>
 
     <!-- Socials Section -->
@@ -536,7 +536,7 @@ export default {
 }
 
 .myProjectCards:hover span .myProjectCardSeparator{
-  width: 40%; 
+  width: 40%;
 }
 
 .myProjectCards img{
@@ -564,7 +564,7 @@ export default {
 
   opacity: 0;
   background-color: transparent;
-  transition: 
+  transition:
     opacity 0.3s ease-in-out,
     background-color 0.2s ease-in-out,
     padding-top 0.8s cubic-bezier(.03,1.12,.82,.99);
