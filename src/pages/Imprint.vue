@@ -1,23 +1,27 @@
 <template>
   <q-layout class="bg-grey-10 text-white">
-    <div class="q-pa-md layoutContainer1">
-        <div class="imprint"><b>Imprint</b></div>
-        <div class="mainText">
-            Sebastian Tatar
-            <br>
-            Schadneramt 55 / 2
-            <br>
-            3264 Gresten
-            <br>
-            Austria
-            <br>
-            <br>
-            <p><b>Contact:</b></p> 
-            sebi.tatar2@gmail.com
-            <br>
-            +43 660 6618501
-        </div>
-    </div>
+    <q-page-container>
+      <q-page>
+        <div class="q-pa-md layoutContainer1">
+            <div class="imprint"><b>Imprint</b></div>
+            <div class="mainText">
+                Sebastian Tatar
+                <br>
+                Herzogenburgerstraße 60/14
+                <br>
+                3100 St.Pölten
+                <br>
+                Austria
+                <br>
+                <br>
+                <p><b>Contact:</b></p>
+                sebi.tatar2@gmail.com
+                <br>
+                +43 660 6618501
+            </div>
+          </div>
+     </q-page>
+    </q-page-container>
   </q-layout>
 </template>
 

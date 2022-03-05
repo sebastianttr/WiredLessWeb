@@ -1,17 +1,17 @@
 <template>
-  <q-page id="page" class="flex flex-center bg-grey-10">
+  <q-page id="page" class="flex q-pt-bg flex-center bg-grey-10">
 
     <!-- Main Section -->
     <div id="main" class="main">
-      <div class="fit column wrap justify-center items-start content-center">
+      <div class="fit column wrap justify-center items-start content-center q-ml-md q-mr-md">
         <h1 class="myHeader1">Hello!</h1>
         <h1 class="myHeader2">I am Sebastian Tatar</h1>
         <div>
-          <span class="text-h4">i'm a</span>
+          <span :class="$q.platform.is.desktop?'text-h4':'text-h5'">i'm a</span>
           <loopedanimatedaext
             id="animatedText"
             :titles="loopedAnimtedTextContent"
-            :fontSize="'45px'"
+            :fontSize="$q.platform.is.desktop?'45px':'30px'"
             :color="'#bf360c'"
             :start="true"
             />
@@ -51,18 +51,18 @@
         :color="'#bf360c'"
         :start="scrollAppearElements[1].state">
       </animatedtext>
-      <div class="scrollAppearContainer">
+      <div class="flex column justify-center items-center content-center scrollAppearContainer">
         <div
           v-for="(item,index) in tryouts"
           :key="index"
           class="fit column wrap justify-center items-center content-center q-ma-md q-pa-md scrollAppearItem"
           style="color:white;"
         >
-          <video class="tryoutVideo" autoplay loop muted>
+          <video class="tryoutVideo" autoplay loop muted webkit-playsinline playsinline>
             <source :src="item.videopath" type="video/mp4">
           </video>
-          <div style="font-size:35px; margin-top:10px;">{{item.title}}</div>
-          <div style="font-size:15px; margin-top:10px;">{{item.description}}</div>
+          <div style="font-size:35px; margin:10px; text-align:center;">{{item.title}}</div>
+          <div style="font-size:15px; margin:10px; text-align:center;">{{item.description}}</div>
           <q-btn
             class="q-ma-md"
             outline
@@ -134,6 +134,8 @@
         >Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis perferendis totam, ea at omnis vel numquam exercitationem aut, natus minima, porro labore.</q-card-section>
       </q-card>
     </q-dialog>
+
+
   </q-page>
 </template>
 
@@ -145,6 +147,7 @@ import ScrollAnimationHandler from "src/handlers/ScrollAnimationHandler.js";
 import Vue from "vue";
 import { scroll } from "quasar";
 const { getScrollPosition, setScrollPosition } = scroll;
+import { Platform } from 'quasar'
 
 const animatedTextContents = [
   "Web Developer.",
@@ -765,6 +768,13 @@ export default {
 
   .tryoutVideo {
     max-width: 92vw;
+  }
+
+  .myHeader1{
+    font-size: 3em;
+  }
+  .myHeader2{
+    font-size: 5em;
   }
 }
 </style>

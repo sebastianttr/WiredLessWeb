@@ -12,7 +12,7 @@
             fab
             icon="keyboard_arrow_up"
             color="deep-orange-10"
-            @click="scrollToHome()"
+            @click="$root.$emit('scrollToHome', 'scroll');"
           />
         </transition>
       </q-page-sticky>

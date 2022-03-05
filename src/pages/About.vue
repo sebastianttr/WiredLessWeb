@@ -2,39 +2,36 @@
   <q-layout class="q-pa-md bg-grey-10 text-white">
     <q-page-container>
       <q-page>
-      <div class="layoutContainer1">
-          <h1>Hi!</h1>
-          <div class="mainText1">
-              My name is Sebastian.
-              <br>
-              <br>
-              I am a Web Developer with a experience in frontend/backend as well as some mobile development from Austria.
-              <br>
-              <br>
-              I enjoy creating useful Web Apps and beautiful, eye-catching websites. I have always been interested in making good 
-              looking and simple user interfaces and enhancing it with a pleasant user experience. 
-              <br>
-              <br>
-              <br>
-              I have been programming for 7 years, eversince i started playing around with arduino. I have been getting my hands dirty with 
-              native mobile development, web development and ui/ux design during my time in high school studying electrical engineering. 
-              I am currently a student at the University of Applied Sciences in St. Pölten in the Creative Computing study programme. 
+          <div class="layoutContainer1">
+              <h1>Hi!</h1>
+              <p class="mainText1">
+                  My name is Sebastian. I am a Web Developer with a experience in frontend/backend as well as some mobile development from Austria.
+                  <br>
+                  <br>
+                  I enjoy creating useful Web Apps and beautiful, eye-catching websites. I have always been interested in making good
+                  looking and simple user interfaces and enhancing it with a pleasant user experience.
+                  <br>
+                  <br>
+                  <br>
+                  I have been programming for 7 years, eversince i started playing around with arduino. I have been getting my hands dirty with
+                  native mobile development, web development and ui/ux design during my time in high school studying electrical engineering.
+                  I am currently a student at the University of Applied Sciences in St. Pölten in the Creative Computing study programme.
+              </p>
           </div>
-      </div>
 
-      <div class="layoutContainer2 scrollAppearContainer">
-          <animated-text
-            id="skillSetTitle"
-            class="q-mb-xl"
-            :title="'skillset'" 
-            :fontSize="'45px'" 
-            :color="'#bf360c'"
-            :start="scrollAppearElements[0].state">
-          </animated-text>
-          <div class="skillSetItems">
-              <skillset-item v-for="(item,index) in skillSets" :key="index*1000" :dataSet="skillSets[index]" class="scrollAppearItem"></skillset-item>
+          <div class="layoutContainer2 scrollAppearContainer">
+              <animated-text
+                id="skillSetTitle"
+                class="q-mb-xl"
+                :title="'skillset'"
+                :fontSize="'45px'"
+                :color="'#bf360c'"
+                :start="scrollAppearElements[0].state">
+              </animated-text>
+              <div class="skillSetItems">
+                  <skillset-item v-for="(item,index) in skillSets" :key="index*1000" :dataSet="skillSets[index]" class="scrollAppearItem"></skillset-item>
+              </div>
           </div>
-      </div>
       </q-page>
     </q-page-container>
   </q-layout>
@@ -50,8 +47,8 @@ const skillSetData = [
   {
     title: "Frontend",
     description:`
-      Proficiency in HTML5, CSS and JS ES8 and Vue. 
-      Also have experience with other technologies such as ASP.NET Blazor and React 
+      Proficiency in HTML5, CSS and JS ES8 and Vue.
+      Also have experience with other technologies such as ASP.NET Blazor and React
     `,
     images:[
       {
@@ -79,7 +76,7 @@ const skillSetData = [
   {
     title: "Backend",
     description:`
-      I have been using Node and Spring Boot in numerous project, 
+      I have been using Node and Spring Boot in numerous project,
       coupled with databases to create micro services.
     `,
     images:[
@@ -108,7 +105,7 @@ const skillSetData = [
   {
     title: "UI/UX Design",
     description:`
-      Design is one of the most important aspects of any kind of user interface. 
+      Design is one of the most important aspects of any kind of user interface.
       I like a modern responsive look that feels alive when interacting.
     `,
     images:[
@@ -127,7 +124,7 @@ const skillSetData = [
   {
     title: "Web Deployment",
     description:`
-      One of the most useful tools for deploying a 
+      One of the most useful tools for deploying a
       web application is Nginx and Docker, which i have been using on a DO Linux VM.
     `,
     images:[
@@ -206,7 +203,7 @@ export default {
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  margin-top: 10vh;
+  margin-top: 20vh;
 }
 
 .layoutContainer1 h1 {
@@ -238,10 +235,11 @@ export default {
 .mainText1{
   opacity: 1;
   margin-top: 0px;
-  width: 70vw;
   text-align: center;
   font-size: 20px;
   animation: appearUp 2s ease-in-out;
+  width: 50vw;
+  text-align: justify;
 }
 
 .skillSetTitle{

@@ -3,7 +3,7 @@
         <nav>
             <div class="header">
                 <div class="headerWrapper">
-                    <h4 class="">WiredLess</h4>
+                    <h4 @click="$router.push('/')" class="">WiredLess</h4>
                     <div class="headerLinks">
                         <div v-for="(navLink,index) in navLinks" :key="index*100" @click="goTo(navLink.action)">
                             <custom-link :text="navLink.title" />
@@ -13,35 +13,21 @@
             </div>
         </nav>
 
-
-        <q-header reveal :class="!showMobileToolBar?'transparent':'bg-white'  + ' headerMobile'">
-            <q-toolbar class="text-black">
-                <q-toolbar-title>WiredLess</q-toolbar-title>
-                <q-btn flat round dense icon="menu" @click="openFullScreen()"/>
+        <q-header reveal :class="'bg-white headerMobile ' + (!showMobileToolBarNav?' shadow-4 ':'')">
+            <q-toolbar class="text-black bg-white mobileToolBar">
+                <q-toolbar-title @click="$router.push('/')">WiredLess</q-toolbar-title>
+                <q-btn flat round dense :icon="!showMobileToolBarNav?'menu':'close'" @click="toggleNavMenu()"/>
             </q-toolbar>
-        </q-header>
 
-        <div id="myNav" class="overlay">
-            <a href="javascript:void(0)" class="closebtn" @click="closeNav()">&times;</a>
-            <div class="overlay-content" @click="closeNav()">
-
-                <div @click="scrollToHome()">
-                  <div class="mobileNavs">Home</div>
+            <div class="responsiveNavMenu" :style="`height:${navLinks.length * (navBarLinkHeight) * showMobileToolBarNav }px`">
+              <div class="linksContainer">
+                <div  v-for="(navLink,index) in navLinks" :key="index*1000" @click="goTo(navLink.action)">
+                  <h6 class="responsiveLinks">{{navLink.title}}</h6>
+                  <hr class="solid q-pa-none q-mt-none q-mb-none q-ml-xl q-mr-xl">
                 </div>
-                <div @click="scrollToProjects()">
-                  <div class="mobileNavs">Projects</div>
-                </div>
-                <div @click="scrollToTryouts()">
-                  <div class="mobileNavs">Try Outs</div>
-                </div>
-                <div @click="scrollToSocials()">
-                  <div class="mobileNavs">Socials</div>
-                </div>
-                <div @click="$router.push('/p/about')">
-                  <div class="mobileNavs">About Me</div>
-                </div>
+              </div>
             </div>
-        </div>
+        </q-header>
     </div>
 </template>
 <script>
@@ -62,8 +48,10 @@ export default {
     data(){
         return {
             navOpen: false,
-            showMobileToolBar: true,
-            lastScrollPos:0
+            showMobileToolBarNav: false,
+            lastScrollPos:0,
+            navBarLinkHeight:"0px",
+            isScrollingDown:false
         }
     },
     methods:{
@@ -91,32 +79,38 @@ export default {
             const pageName = actionName.substring(actionName.indexOf(":")+1,actionName.length);
             this.$router.push(`${pageName}`);
           }
-
         },
-        openFullScreen() {
-            this.showMobileToolBar = false;
-            document.getElementById("myNav").style.width = "100vw";
-        },
-        closeNav() {
-            this.showMobileToolBar = true;
-            document.getElementById("myNav").style.width = "0%";
+        toggleNavMenu() {
+            this.showMobileToolBarNav = !this.showMobileToolBarNav;
+            //document.getElementById("myNav").style.width = "100vw";
         },
         handleScroll(){
+
+            // close navbar menu on scroll
+            this.showMobileToolBarNav = false;
+
             // Navbar things
             let scrollPosReached = window.scrollY >= 60;
             document.getElementsByTagName("nav")[0].style.height = scrollPosReached?"60px":"100px";
             document.getElementsByTagName("nav")[0].style.boxShadow = scrollPosReached?"0px 0px 28px -1px #000000":"none";
 
 
+            document.getElementsByClassName("mobileToolBar")[0].style.marginTop = this.lastScrollPos <= window.scrollY?"-100px":"0px";
+
+            // reduce height based on scroll
             document.getElementsByTagName("nav")[0].style.marginTop =
               // if scrolling down and below window height
                 (window.scrollY >= this.lastScrollPos && window.scrollY >= this.disappearThreshold)?
                 "-100px":
                 "0";
             this.lastScrollPos = window.scrollY;
+
+
+
         }
   },
   mounted(){
+      // run header animation one by one with delay in between
       let headerLinks = document.getElementsByClassName("headerLinks")[0].children;
       for(let i = 0;i<headerLinks.length;i++){
         headerLinks[i].style.animation = `fadeInUp 0.8s cubic-bezier(.03,1.12,.82,.99) ${i * 0.2}s`;
@@ -125,6 +119,14 @@ export default {
         })
       }
       console.log(this.$props.navLinks);
+
+
+      // get computed style in order to determine the height
+      // get a element with that class name
+      const navBarEl = document.getElementsByClassName("responsiveLinks")[0];
+
+      // get computed style height and save it.
+      this.navBarLinkHeight = Number(window.getComputedStyle(navBarEl).height.replace("px",""));
   },
   beforeMount() {
     document.addEventListener("scroll", this.handleScroll);
@@ -331,6 +333,11 @@ nav{
     }
 }
 
+.mobileToolBar{
+  transition: margin-top 0.5s cubic-bezier(.03,1.12,.82,.99);
+}
+
+
 @media only screen and (max-width: 768px) {
   .header {
     display: none;
@@ -339,5 +346,37 @@ nav{
   .headerMobile {
     display: initial;
   }
+
 }
+
+.responsiveNavMenu {
+  position:absolute;
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width:100vw;
+  overflow:hidden;
+  box-shadow: 0px 5px 10px -5px rgb(97, 97, 97);
+  transition: height 1.0s cubic-bezier(.03,1.12,.82,.99);
+}
+
+.linksContainer{
+  background-color: white;
+  position: absolute;
+}
+
+.responsiveLinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color:black;
+  width:100vw;
+  height: 60px;
+  margin:0;
+  padding:15px 0px 15px 0px;
+}
+
+
+
 </style>
